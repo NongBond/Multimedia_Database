@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-slate-700`}>
+      <body className={`${inter.className} bg-gradient-to-r from-cyan-500 to-blue-500`}>
         <AuthProvider>
           <div>
             <Navbar />

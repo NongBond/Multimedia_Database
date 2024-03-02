@@ -15,7 +15,7 @@ const UserLink = () => {
           </span>
         </div>
       ) : (
-        <Link href="/login" className="text-white cursor-pointer">
+        <Link href="/login" className="text-orange-300 cursor-pointer">
           Login
         </Link>
       )}

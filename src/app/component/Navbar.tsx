@@ -6,10 +6,10 @@ import { getAuthSession } from "@/util/auth";
 const Navbar = async () => {
   const session = await getAuthSession();
   return (
-    <div className="bg-sky-700">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center py-4 px-6 text-lg">
+    <div className="h-14 bg-white">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center py-3 px-4 text-sm">
         <div className="flex-1">
-          <Link href="/" className="text-white text-2xl">
+          <Link href="/" className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-sky-300 text-2xl">
             Home
           </Link>
         </div>
@@ -24,29 +24,29 @@ const Navbar = async () => {
               />
             </div>
           </form>
-          <div className="text-white">
+          <div className="text-orange-300">
             <Link href="/schedule" className="focus:font-bold">
               Schedule
             </Link>
           </div>
-          <div className="text-white">
+          <div className="text-orange-300">
             <Link href="/athlete" className="focus:font-bold">
               Athlete
             </Link>
           </div>
-          <div className="text-white">
+          <div className="text-orange-300">
             <Link href="/countries" className="focus:font-bold">
               Country
             </Link>
           </div>
           {session?.user.isAdmin && (
-            <div className="text-white">
+            <div className="text-orange-300">
               <Link href="/dashboard" className="focus:font-bold">
                 Dashboard
               </Link>
             </div>
           )}
-          <UserLink />
+          <UserLink/>
         </div>
       </div>
     </div>
