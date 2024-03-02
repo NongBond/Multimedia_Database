@@ -6,11 +6,9 @@ const MENU = [
   {
     title: "Page",
     list: [
-      { title: "Dashboard", path: "/dashboard" },
       { title: "Athlete", path: "/dashboard/athlete" },
       { title: "Country", path: "/dashboard/country" },
       { title: "Medal", path: "/dashboard/medal" },
-      { title: "Users", path: "/dashboard/users" },
     ],
   },
 ];

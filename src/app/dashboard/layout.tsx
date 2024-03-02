@@ -2,12 +2,14 @@
 import { useSession } from "next-auth/react";
 import Navbar from "../ui/dashboard/navbar/navbar";
 import Sidebar from "../ui/dashboard/sidebar/sidebar";
+import { useRouter } from "next/navigation";
 
 const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const router = useRouter();
   const session = useSession();
   if (session.status === "loading") {
     return (
@@ -15,18 +17,14 @@ const Layout = ({
     );
   }
   if (session.status !== "authenticated" || !session.data?.user.isAdmin) {
-    return (
-      <div className="text-3xl text-center text-white pt-5">
-        You do not have permission
-      </div>
-    );
+    return router.push("/");
   }
   return (
-    <div className="grid grid-flow-col-dense gird-cols-10 h-full">
-      <div className="col-span-2 bg-slate-600 w-[350px] h-full">
+    <div className="grid grid-flow-col-dense gird-cols-10 min-h-[45rem]">
+      <div className="col-span-2 bg-cyan-600 w-[350px] ">
         <Sidebar />
       </div>
-      <div className="col-span-8 bg-slate-700">
+      <div className="col-span-8 ">
         <Navbar />
         {children}
       </div>

@@ -5,7 +5,7 @@ import React from "react";
 const Navbar = () => {
   const pathName = usePathname();
   return (
-    <div className="mx-28 my-4 bg-slate-700 rounded-lg">
+    <div className="mx-28 my-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg">
       <div className="text-2xl font-bold text-white text-center p-5 capitalize">
         {pathName.split("/").pop()}
       </div>

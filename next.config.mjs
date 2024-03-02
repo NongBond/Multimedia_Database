@@ -6,6 +6,7 @@ const nextConfig = {
       { hostname: "lh3.googleusercontent.com" },
       { hostname: "rs.thaiparaathletics.com" },
       { hostname: "res.cloudinary.com" },
+      { hostname: "www.countryflags.io" },
     ],
   },
 };

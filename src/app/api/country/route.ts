@@ -6,6 +6,9 @@ export const GET = async (req: NextRequest) => {
   const country = searchParams.get("country");
   try {
     const countries = await prisma.country.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
       where: {
         ...(country && { name: country }),
       },

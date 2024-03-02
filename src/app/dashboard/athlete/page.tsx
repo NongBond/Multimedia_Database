@@ -27,14 +27,14 @@ const setDateFormat = (date: string) => {
 const AthletePage = async () => {
   const athletes: AthleteType[] = await fetchAthlete();
   return (
-    <div className="px-8 bg-slate-600 pt-4">
+    <div className="px-8 bg-slate-200 pt-4">
       <div className="flex justify-between">
         <Search placeholder="Search athlete..." />
         <Link href="/dashboard/athlete/add">
           <AddButton />
         </Link>
       </div>
-      <table className="table-auto w-full text-center mt-2 text-white">
+      <table className="table-auto w-full border-gray-600 text-center mt-2 bg-slate-200 text-black">
         <thead className=" ">
           <tr>
             <th className="w-32 p-3 text-sm font-semibold tracking-wide ">
@@ -63,7 +63,7 @@ const AthletePage = async () => {
         <tbody>
           {athletes.map((athlete) => (
             <tr key={athlete.id} className="">
-              <td className="p-3 text-sm text-white">
+              <td className="p-3 text-sm text-black">
                 <div className="flex flex-col items-center justify-center">
                   <Image
                     src={athlete.country.flag}
@@ -75,8 +75,8 @@ const AthletePage = async () => {
                   <p>{athlete.country.name}</p>
                 </div>
               </td>
-              <td className="p-3 text-base text-white">{athlete.bibNo}</td>
-              <td className="p-3 text-base text-white">
+              <td className="p-3 text-base text-black">{athlete.bibNo}</td>
+              <td className="p-3 text-base text-black">
                 {
                   <div className="flex flex-col items-center justify-center">
                     <Image
@@ -89,14 +89,14 @@ const AthletePage = async () => {
                   </div>
                 }
               </td>
-              <td className="p-3 text-base text-white">{athlete.gender}</td>
-              <td className="p-3 text-base text-white">
+              <td className="p-3 text-base text-black">{athlete.gender}</td>
+              <td className="p-3 text-base text-black">
                 {setDateFormat(athlete.dateOfBirth)}
               </td>
-              <td className="p-3 text-base text-white">
+              <td className="p-3 text-base text-black">
                 {athlete.classification}
               </td>
-              <td className="p-3 text-base text-white">
+              <td className="p-3 text-base text-black">
                 <div>
                   <Link href="/dashboard/athlete/test">
                     <EditButton />

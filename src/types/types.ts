@@ -1,19 +1,55 @@
 export type CountryType = {
-  id: number;
+  id: string;
   name: string;
+  abbreviation: string;
   flag: string;
+  athletes: AthleteType[];
+  medals: MedalType[];
 };
 
 export type AthleteType = {
-  id: number;
-  bibNo: number;
+  id: string;
+  bibNo: string;
   country: CountryType;
   name: string;
   gender: string;
   dateOfBirth: string;
   classification: string;
   picture: string;
+  events: EventType[];
+  medals: MedalType[];
 };
+
+export type EventType = {
+  id: string;
+  name: string;
+  description?: string;
+  athletes: AthleteType[];
+  medals: MedalType[];
+  results: ResultType[];
+};
+
+export type MedalType = {
+  id: string;
+  createdAt: string;
+  type: MedalTypeEnum;
+  athlete: AthleteType;
+  country: CountryType;
+  event: EventType;
+};
+
+export type ResultType = {
+  id: string;
+  createdAt: string;
+  result: string;
+  event: EventType;
+};
+
+export enum MedalTypeEnum {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+}
 
 export type UserType = {
   id: number;

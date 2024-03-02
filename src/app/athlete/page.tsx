@@ -1,6 +1,7 @@
 "use client";
 import { AthleteType, CountryType } from "@/types/types";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const fetchAthlete = async () => {
@@ -90,6 +91,7 @@ const AthletePage = () => {
             <th className="w-28 p-3 text-sm font-semibold tracking-wide ">
               CLASSIFICATION
             </th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -127,6 +129,13 @@ const AthletePage = () => {
               </td>
               <td className="p-3 text-base text-gray-700">
                 {athlete.classification}
+              </td>
+              <td>
+                <Link href={`/athlete/${athlete.id}`}>
+                  <button className="text-blue-500 bg-orange-300 px-4 py-2 rounded-lg font-bold w-18">
+                    View
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}
