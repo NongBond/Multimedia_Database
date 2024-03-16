@@ -10,7 +10,10 @@ const UserLink = () => {
     <div>
       {status === "authenticated" ? (
         <div>
-          <span className="cursor-pointer text-white" onClick={() => signOut()}>
+          <span
+            className="cursor-pointer text-orange-300"
+            onClick={() => signOut()}
+          >
             Logout
           </span>
         </div>

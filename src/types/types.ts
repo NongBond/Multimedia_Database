@@ -58,5 +58,5 @@ export type UserType = {
   isAdmin: boolean;
   password: string;
   role: string;
-  picture: string;
+  image: string;
 };

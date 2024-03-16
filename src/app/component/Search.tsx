@@ -12,7 +12,7 @@ const Search = ({ placeholder }: PlaceholderProps) => {
       <input
         type="text"
         placeholder={placeholder}
-        className="bg-transparent p-2"
+        className="bg-transparent p-2 placeholder:text-black"
       />
     </div>
   );

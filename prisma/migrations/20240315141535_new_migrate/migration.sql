@@ -32,7 +32,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "email" TEXT,
     "emailVerified" TIMESTAMP(3),
-    "isAdmind" BOOLEAN NOT NULL DEFAULT false,
+    "isAdmin" BOOLEAN NOT NULL DEFAULT false,
     "image" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -56,6 +56,7 @@ CREATE TABLE "Athlete" (
     "dateOfBirth" TIMESTAMP(3) NOT NULL,
     "classification" TEXT NOT NULL,
     "picture" TEXT NOT NULL,
+    "eventId" TEXT NOT NULL,
 
     CONSTRAINT "Athlete_pkey" PRIMARY KEY ("id")
 );
@@ -65,19 +66,37 @@ CREATE TABLE "Country" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
+    "abbreviation" TEXT NOT NULL DEFAULT '',
     "flag" TEXT NOT NULL DEFAULT 'https://www.countryflags.io/US/flat/64.png',
 
     CONSTRAINT "Country_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Category" (
+CREATE TABLE "Event" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "eventNumber" TEXT NOT NULL,
+    "classification" TEXT NOT NULL,
+    "stage" TEXT NOT NULL,
+    "gender" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
+    "time" TEXT NOT NULL,
 
-    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Result" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "bibNo" TEXT NOT NULL,
+    "rank" INTEGER,
+    "result" TEXT,
+    "points" INTEGER,
+
+    CONSTRAINT "Result_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -95,6 +114,9 @@ CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token"
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Athlete_bibNo_key" ON "Athlete"("bibNo");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -103,3 +125,6 @@ ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Athlete" ADD CONSTRAINT "Athlete_countryId_fkey" FOREIGN KEY ("countryId") REFERENCES "Country"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Athlete" ADD CONSTRAINT "Athlete_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

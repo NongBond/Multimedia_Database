@@ -2,7 +2,7 @@
 import AddButton from "@/app/component/AddButton";
 import { CountryType } from "@/types/types";
 import { useRouter } from "next/navigation";
-import React, { OptionHTMLAttributes, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type InputType = {
   name: string;
@@ -68,7 +68,7 @@ const AddCountryPage: React.FC = () => {
     };
 
     fetchCountries();
-  }, []);
+  }, [countries]);
 
   const submitData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

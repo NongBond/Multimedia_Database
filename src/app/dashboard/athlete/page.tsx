@@ -1,10 +1,11 @@
+"use client";
 import AddButton from "@/app/component/AddButton";
-import EditButton from "@/app/component/EditButton";
 import Search from "@/app/component/Search";
 import { AthleteType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const fetchAthlete = async () => {
   const res = await fetch(`http://localhost:3000/api/athlete`, {
@@ -17,6 +18,15 @@ const fetchAthlete = async () => {
   return data;
 };
 
+const handleDelete = async (id: string) => {
+  const res = await fetch(`http://localhost:3000/api/athlete/delete/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to delete athlete");
+  }
+};
+
 const setDateFormat = (date: string) => {
   const dateObj = new Date(date);
   return (
@@ -24,19 +34,27 @@ const setDateFormat = (date: string) => {
   );
 };
 
-const AthletePage = async () => {
-  const athletes: AthleteType[] = await fetchAthlete();
+const AthletePage = ({ searchParams }: any) => {
+  const [athletes, setAthletes] = useState<AthleteType[]>([]);
+  const query = searchParams?.query || "";
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAthlete();
+      setAthletes(data);
+    };
+    fetchData();
+  }, []);
   return (
-    <div className="px-8 bg-slate-200 pt-4">
-      <div className="flex justify-between">
+    <div className="px-8 pt-4">
+      <div className="flex justify-between text-black">
         <Search placeholder="Search athlete..." />
         <Link href="/dashboard/athlete/add">
           <AddButton />
         </Link>
       </div>
-      <table className="table-auto w-full border-gray-600 text-center mt-2 bg-slate-200 text-black">
+      <table className="table-auto w-full border-gray-600 text-center mt-2  text-black">
         <thead className=" ">
-          <tr>
+          <tr className="border-b-blacks border-b-2">
             <th className="w-32 p-3 text-sm font-semibold tracking-wide ">
               COUNTRY
             </th>
@@ -97,10 +115,19 @@ const AthletePage = async () => {
                 {athlete.classification}
               </td>
               <td className="p-3 text-base text-black">
-                <div>
-                  <Link href="/dashboard/athlete/test">
-                    <EditButton />
+                <div className="flex flex-row justify-center gap-2">
+                  <Link href={`/dashboard/athlete/${athlete.id}`}>
+                    <MdEdit width={50} height={50} className="w-6 h-6" />
                   </Link>
+                  {/* <form action={DeleteAthlete}>
+                    <input type="hidden" value={athlete.id} />
+                    <button>
+                      <MdDelete width={50} height={50} className="w-6 h-6" />
+                    </button>
+                  </form> */}
+                  <button onClick={() => handleDelete(athlete.id)}>
+                    <MdDelete width={50} height={50} className="w-6 h-6" />
+                  </button>
                 </div>
               </td>
             </tr>

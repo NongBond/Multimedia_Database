@@ -71,8 +71,6 @@ model Athlete {
   classification String
   picture        String
   events         Event[]
-  medals         Medal[]
-  results        Result[]
 }
 
 model Country {
@@ -82,55 +80,26 @@ model Country {
   abbreviation String    @default("")
   flag         String    @default("https://www.countryflags.io/US/flat/64.png")
   athletes     Athlete[]
-  medals       Medal[]
 }
 
 model Event {
-  id          String    @id @default(uuid())
-  createdAt   DateTime  @default(now())
-  eventNumber String
-  gender      String
-  name        String
-  date        DateTime
-  time        String
-  type        EventType
-  athletes    Athlete[] // Relationship to athletes participating in this event
-  results     Result[] // Relationship to results of this event
-}
-
-model Medal {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  type      MedalType // Gold, Silver, Bronze
-  athlete   Athlete   @relation(fields: [athleteId], references: [id])
-  athleteId String
-  country   Country   @relation(fields: [countryId], references: [id])
-  countryId String
+  id             String    @id @default(uuid())
+  createdAt      DateTime  @default(now())
+  eventNumber    String
+  classification String
+  stage          String
+  gender         String
+  name           String
+  date           DateTime
+  time           String
+  athletes       Athlete[]
 }
 
 model Result {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  event     Event    @relation(fields: [eventNo], references: [id])
-  eventNo   String
-  athlete   Athlete  @relation(fields: [bibNo], references: [bibNo])
   bibNo     String
   rank      Int?
   result    String?
   points    Int?
-}
-
-enum MedalType {
-  GOLD
-  SILVER
-  BRONZE
-}
-
-enum EventType {
-  ShotPut
-  Run
-  LongJump
-  DiscusThrow
-  JavelinThrow
-  HeighJump
 }

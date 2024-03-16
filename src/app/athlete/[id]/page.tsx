@@ -64,11 +64,11 @@ const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
               <p>{athlete.country.name}</p>
             </div>
           </div>
-          <div className="flex flex-row gap-4 text-white items-center ">
+          <div className="flex flex-row gap-1 text-white items-center ">
             <p className="font-medium text-lg">Age:</p>{" "}
             <p>{calculateAge(athlete.dateOfBirth)}</p>
           </div>
-          <div className="flex flex-row gap-4 text-white items-center ">
+          <div className="flex flex-row gap-1 text-white items-center ">
             <p className="font-medium text-lg">Gender:</p>{" "}
             <p>{athlete.gender}</p>
           </div>
