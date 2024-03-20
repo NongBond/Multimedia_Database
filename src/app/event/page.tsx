@@ -2,28 +2,30 @@
 import { EventType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 
-const fetchData = async () => {
-  const res = await fetch(`http://localhost:3000/api/event`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch event");
-  }
-  const data = await res.json();
-  return data;
-};
-
 const EventPage = () => {
   const [event, setEvent] = useState<EventType[]>([]);
   const [eventelected, setEventelected] = useState("all");
-  const [daySelected, setDaySelected] = useState("");
-  const [timeSelected, setTimeSelected] = useState("");
+  const [daySelected, setDaySelected] = useState("all");
+  const [timeSelected, setTimeSelected] = useState("all");
   const [typeSelected, setTypeSelected] = useState("all");
+  const [uniqueDays, setUniqueDays] = useState<string[]>([]);
+  const [uniqueGenders, setUniqueGenders] = useState<string[]>([]);
+  const [uniqueTimes, setUniqueTimes] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchEvent();
-      setEvent(data);
+      try {
+        const data = await fetchEvent();
+        setEvent(data);
+        const uniqueDays = Array.from(new Set(data.map(event => event.date.split('T')[0])));
+        setUniqueDays(uniqueDays);
+        const uniqueGenders = Array.from(new Set(data.map(event => event.gender)));
+        setUniqueGenders(uniqueGenders);
+        const uniqueTimes = Array.from(new Set(data.map(event => event.time)));
+        setUniqueTimes(uniqueTimes);
+      } catch (error) {
+        console.error("Failed to fetch event:", error);
+      }
     };
     fetchData();
   }, []);
@@ -33,22 +35,43 @@ const EventPage = () => {
       cache: "no-store",
     });
     if (!res.ok) {
-      throw new Error("Failed to fetch athlete");
+      throw new Error("Failed to fetch event");
     }
-    const data = await res.json();
-    return data;
+    return res.json();
   };
 
   const filterevent: EventType[] =
     eventelected === "all"
       ? event
-      : event.filter((event) => event.gender === eventelected);
+      : event.filter((event) => event.name === eventelected);
+
+  const filteredByDay = daySelected === 'all' ? filterevent : filterevent.filter(event => event.date.includes(daySelected));
+
+  const filteredByTypeAndTime = timeSelected === 'all' ? filteredByDay : filteredByDay.filter(event => {
+    const eventTime = event.time; // Extracting time part from the date
+    return eventTime === timeSelected;
+  });
+
+  const filteredByType = typeSelected === 'all' ? filteredByTypeAndTime : filteredByTypeAndTime.filter(event => {
+    if (typeSelected === 'men') {
+      return event.gender === 'men';
+    } else if (typeSelected === 'female') {
+      return event.gender === 'female';
+    }
+    return true; 
+  });
+
+  const separateDateAndTime = (date: string) => {
+    const dateObj = new Date(date);
+    const formattedDate = dateObj.toLocaleDateString();
+    return `${formattedDate}`;
+  };
 
   return (
     <div className="px-28">
       <div className="mt-5 text-white">
         <label htmlFor="event-filter" className="ml-3">
-          event:
+          Event:
         </label>
         <select
           id="event-filter"
@@ -58,7 +81,7 @@ const EventPage = () => {
           <option value="all">All</option>
         </select>
         <label htmlFor="day-filter" className="ml-3">
-          DAY:
+          Day:
         </label>
         <select
           id="day-filter"
@@ -66,9 +89,12 @@ const EventPage = () => {
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
+          {uniqueDays.map(day => (
+            <option key={day} value={day}>{day}</option>
+          ))}
         </select>
         <label htmlFor="time-filter" className="ml-3">
-          TIME:
+          Time:
         </label>
         <select
           id="time-filter"
@@ -76,9 +102,12 @@ const EventPage = () => {
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
+          {uniqueTimes.map(time => (
+            <option key={time} value={time}>{time}</option>
+          ))}
         </select>
         <label htmlFor="type-filter" className="ml-3">
-          TYPE:
+          Type:
         </label>
         <select
           id="type-filter"
@@ -86,43 +115,49 @@ const EventPage = () => {
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
+          {uniqueGenders.map(gender => (
+            <option key={gender} value={gender}>{gender}</option>
+          ))}
         </select>
       </div>
       <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
         <thead className="bg-gray-50 border-b-2 border-gray-500">
           <tr>
-            <th className="w-25 p-3 text-sm font-semibold tracking-wide border">
-              DATE&TIME:
-            </th>
             <th className="w-24 p-3 text-sm font-semibold tracking-wide border">
-              NO:
+              No
+            </th>
+            <th className="w-25 p-3 text-sm font-semibold tracking-wide border">
+              Date & Time
             </th>
             <th className="w-30 p-3 text-sm font-semibold tracking-wide border">
-              NAME:
+              Name
             </th>
             <th className="w-20 p-3 text-sm font-semibold tracking-wide border">
-              GENDER:
+              Gender
             </th>
-            <th className="w-40p-3 text-sm font-semibold tracking-wide border">
-              CLASSIFICATION:
-            </th>
-            <th className="w-30 p-3 text-sm font-semibold tracking-wide border">
-              Stage:
+            <th className="w-40 p-3 text-sm font-semibold tracking-wide border">
+              Classification
             </th>
             <th className="w-30 p-3 text-sm font-semibold tracking-wide border">
-              Status:
+              Stage
+            </th>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide border">
+              Status
             </th>
           </tr>
         </thead>
         <tbody>
-          {/* {filterevent.map((event) => (
+          {filteredByType.map((event) => (
             <tr key={event.id}>
-              <td className="p-3 border">{event.date}</td>
-              <td className="p-3 border">{event.no}</td>
-              <td className="p-3 border">{event.name}</td>
-              <td className="p-3 border"></td>
+              <td className="p-3 border border-gray-400">{event.eventNumber}</td>
+              <td className="p-1 border border-gray-400">{event.time}<br />{separateDateAndTime(event.date)}</td>
+              <td className="p-3 border border-gray-400">{event.name}</td>
+              <td className="p-3 border border-gray-400">{event.gender}</td>
+              <td className="p-3 border border-gray-400">{event.classification}</td>
+              <td className="p-3 border border-gray-400">{event.stage}</td>
+              <td className="p-3 border border-gray-400">{event.status}</td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
     </div>

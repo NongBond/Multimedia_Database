@@ -22,9 +22,14 @@ export type AthleteType = {
 
 export type EventType = {
   id: string;
+  eventNumber: string;
   name: string;
-  description?: string;
+  classification?: string;
   gender: string;
+  date: string;
+  time: string;
+  stage: string;
+  status: string;
   athletes: AthleteType[];
   medals: MedalType[];
   results: ResultType[];
