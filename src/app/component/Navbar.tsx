@@ -39,6 +39,11 @@ const Navbar = async () => {
               Country
             </Link>
           </div>
+          <div className="text-orange-300">
+            <Link href="/event" className="focus:font-bold">
+              Events
+            </Link>
+          </div>
           {session?.user.isAdmin && (
             <div className="text-orange-300">
               <Link href="/dashboard" className="focus:font-bold">
