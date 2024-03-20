@@ -1,7 +1,6 @@
 "use client";
 import { CountryType } from "@/types/types";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 
 const EditAthletePage = ({ params }: { params: { id: string } }) => {
@@ -22,6 +21,10 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
     const target = e.target as HTMLInputElement;
     const item = (target.files as FileList)[0];
     setFile(item);
+    const localImageUrl = URL.createObjectURL(item);
+    setInput((prev) => {
+      return { ...prev, picture: localImageUrl };
+    });
   };
 
   const handleChange = (
@@ -46,7 +49,6 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
     );
 
     const resData = await res.json();
-    input.picture = resData.url;
     return resData.url;
   };
 
@@ -96,13 +98,22 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
     }
     const newUrl = await uploadPicture();
     console.log(newUrl);
-    input.picture = newUrl;
+    setInput((prev) => {
+      return { ...prev, picture: newUrl };
+    });
   };
 
   const submitData = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       console.log(input);
+
+      if (file) {
+        const newUrl = await uploadPicture();
+        setInput((prev) => {
+          return { ...prev, picture: newUrl };
+        });
+      }
 
       const date = new Date(input.dateOfBirth);
       input.dateOfBirth = date.toISOString();
@@ -115,12 +126,11 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
       });
 
       const data = await res.json();
-      // redirect(`/athlete/${data.id}`);
+      window.location.href = `/athlete/${data.id}`;
     } catch (error) {
       console.error("Error adding athlete:", error);
     }
   };
-  console.log(input.picture);
 
   return (
     <div>
@@ -128,7 +138,7 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
         <form onSubmit={submitData} className="grid-cols-10">
           <div className="w-full grid-cols-4">
             <Image
-              src={input.picture ? input.picture : "/blank_user.png"}
+              src={input.picture ? input.picture : "/blank_user.jpeg"}
               alt="athlete picture"
               width={50}
               height={50}

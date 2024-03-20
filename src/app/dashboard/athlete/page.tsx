@@ -25,6 +25,7 @@ const handleDelete = async (id: string) => {
   if (!res.ok) {
     throw new Error("Failed to delete athlete");
   }
+  window.location.reload();
 };
 
 const setDateFormat = (date: string) => {
@@ -36,6 +37,7 @@ const setDateFormat = (date: string) => {
 
 const AthletePage = ({ searchParams }: any) => {
   const [athletes, setAthletes] = useState<AthleteType[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const query = searchParams?.query || "";
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +49,10 @@ const AthletePage = ({ searchParams }: any) => {
   return (
     <div className="px-8 pt-4">
       <div className="flex justify-between text-black">
-        <Search placeholder="Search athlete..." />
+        <Search
+          placeholder="Search athlete..."
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <Link href="/dashboard/athlete/add">
           <AddButton />
         </Link>
@@ -79,59 +84,63 @@ const AthletePage = ({ searchParams }: any) => {
           </tr>
         </thead>
         <tbody>
-          {athletes.map((athlete) => (
-            <tr key={athlete.id} className="">
-              <td className="p-3 text-sm text-black">
-                <div className="flex flex-col items-center justify-center">
-                  <Image
-                    src={athlete.country.flag}
-                    alt={`${athlete.country.name}'s flag`}
-                    width={50}
-                    height={50}
-                    className="rounded-full w-20 h-20 mb-2"
-                  />
-                  <p>{athlete.country.name}</p>
-                </div>
-              </td>
-              <td className="p-3 text-base text-black">{athlete.bibNo}</td>
-              <td className="p-3 text-base text-black">
-                {
+          {athletes
+            .filter((athlete) =>
+              athlete.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((athlete) => (
+              <tr key={athlete.id} className="">
+                <td className="p-3 text-sm text-black">
                   <div className="flex flex-col items-center justify-center">
                     <Image
-                      src={athlete.picture}
-                      alt={`${athlete.name}'s picture`}
+                      src={athlete.country.flag}
+                      alt={`${athlete.country.name}'s flag`}
                       width={50}
                       height={50}
+                      className="rounded-full w-20 h-20 mb-2"
                     />
-                    <p>{athlete.name}</p>
+                    <p>{athlete.country.name}</p>
                   </div>
-                }
-              </td>
-              <td className="p-3 text-base text-black">{athlete.gender}</td>
-              <td className="p-3 text-base text-black">
-                {setDateFormat(athlete.dateOfBirth)}
-              </td>
-              <td className="p-3 text-base text-black">
-                {athlete.classification}
-              </td>
-              <td className="p-3 text-base text-black">
-                <div className="flex flex-row justify-center gap-2">
-                  <Link href={`/dashboard/athlete/${athlete.id}`}>
-                    <MdEdit width={50} height={50} className="w-6 h-6" />
-                  </Link>
-                  {/* <form action={DeleteAthlete}>
+                </td>
+                <td className="p-3 text-base text-black">{athlete.bibNo}</td>
+                <td className="p-3 text-base text-black">
+                  {
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={athlete.picture}
+                        alt={`${athlete.name}'s picture`}
+                        width={50}
+                        height={50}
+                      />
+                      <p>{athlete.name}</p>
+                    </div>
+                  }
+                </td>
+                <td className="p-3 text-base text-black">{athlete.gender}</td>
+                <td className="p-3 text-base text-black">
+                  {setDateFormat(athlete.dateOfBirth)}
+                </td>
+                <td className="p-3 text-base text-black">
+                  {athlete.classification}
+                </td>
+                <td className="p-3 text-base text-black">
+                  <div className="flex flex-row justify-center gap-2">
+                    <Link href={`/dashboard/athlete/${athlete.id}`}>
+                      <MdEdit width={50} height={50} className="w-6 h-6" />
+                    </Link>
+                    {/* <form action={DeleteAthlete}>
                     <input type="hidden" value={athlete.id} />
                     <button>
                       <MdDelete width={50} height={50} className="w-6 h-6" />
                     </button>
                   </form> */}
-                  <button onClick={() => handleDelete(athlete.id)}>
-                    <MdDelete width={50} height={50} className="w-6 h-6" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+                    <button onClick={() => handleDelete(athlete.id)}>
+                      <MdDelete width={50} height={50} className="w-6 h-6" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

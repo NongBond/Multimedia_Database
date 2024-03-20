@@ -16,6 +16,7 @@ type InputType = {
 const CountryPage = () => {
   const router = useRouter();
   const [countries, setCountries] = useState<CountryType[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [file, setFile] = useState<File>();
   const [input, setInput] = useState({
     name: "",
@@ -93,9 +94,12 @@ const CountryPage = () => {
   };
 
   return (
-    <div className="px-8 bg-slate-200 pt-4">
+    <div className="px-8t-4">
       <div className="flex justify-between">
-        <Search placeholder="Search country..." />
+        <Search
+          placeholder="Search country..."
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <div className="flex flex-row">
           <form
             onSubmit={submitData}
@@ -156,37 +160,41 @@ const CountryPage = () => {
           </tr>
         </thead>
         <tbody>
-          {countries.map((country) => (
-            <tr key={country.id} className="">
-              <td className="p-3 text-base text-black">
-                {
-                  <div className="flex flex-col items-center justify-center">
-                    <Image
-                      src={country.flag}
-                      alt={`${country.name}'s picture`}
-                      width={50}
-                      height={50}
-                    />
-                    <p>{country.name}</p>
-                  </div>
-                }
-              </td>
-              <td className="p-3 text-sm text-black">
-                <p className="text-xl">{country.name}</p>
-              </td>
-              <td className="p-3 text-base text-black">
-                <p className="text-xl">{country.abbreviation}</p>
-              </td>
+          {countries
+            .filter((country) =>
+              country.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((country) => (
+              <tr key={country.id} className="">
+                <td className="p-3 text-base text-black">
+                  {
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={country.flag}
+                        alt={`${country.name}'s picture`}
+                        width={50}
+                        height={50}
+                      />
+                      <p>{country.name}</p>
+                    </div>
+                  }
+                </td>
+                <td className="p-3 text-sm text-black">
+                  <p className="text-xl">{country.name}</p>
+                </td>
+                <td className="p-3 text-base text-black">
+                  <p className="text-xl">{country.abbreviation}</p>
+                </td>
 
-              <td className="p-3 text-base text-black">
-                <div>
-                  <Link href="/dashboard/athlete/test">
-                    <EditButton />
-                  </Link>
-                </div>
-              </td>
-            </tr>
-          ))}
+                <td className="p-3 text-base text-black">
+                  <div>
+                    <Link href="/dashboard/athlete/test">
+                      <EditButton />
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
