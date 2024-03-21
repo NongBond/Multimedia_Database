@@ -15,6 +15,7 @@ export const GET = async (
         athletes: {
           include: {
             country: true,
+            medal: true,
           },
         },
       },

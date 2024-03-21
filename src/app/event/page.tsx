@@ -1,5 +1,6 @@
 "use client";
 import { EventType } from "@/types/types";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const EventPage = () => {
@@ -18,11 +19,17 @@ const EventPage = () => {
       try {
         const data = await fetchEvent();
         setEvent(data);
-        const uniqueDays: string[] = Array.from(new Set(data.map((event: EventType) => event.date.split('T')[0])));
+        const uniqueDays: string[] = Array.from(
+          new Set(data.map((event: EventType) => event.date.split("T")[0]))
+        );
         setUniqueDays(uniqueDays);
-        const uniqueGenders: string[] = Array.from(new Set(data.map((event: EventType) => event.gender)));
+        const uniqueGenders: string[] = Array.from(
+          new Set(data.map((event: EventType) => event.gender))
+        );
         setUniqueGenders(uniqueGenders);
-        const uniqueTimes: string[] = Array.from(new Set(data.map((event: EventType) => event.time)));
+        const uniqueTimes: string[] = Array.from(
+          new Set(data.map((event: EventType) => event.time))
+        );
         setUniqueTimes(uniqueTimes);
       } catch (error) {
         console.error("Failed to fetch event:", error);
@@ -46,26 +53,35 @@ const EventPage = () => {
       ? event
       : event.filter((event) => event.name === eventelected);
 
-  const filteredByDay = daySelected === 'all' ? filterevent : filterevent.filter(event => event.date.includes(daySelected));
+  const filteredByDay =
+    daySelected === "all"
+      ? filterevent
+      : filterevent.filter((event) => event.date.includes(daySelected));
 
-  const filteredByTypeAndTime = timeSelected === 'all' ? filteredByDay : filteredByDay.filter(event => {
-    const eventTime = parseInt(event.time.split(':')[0]); // Extracting hours from the time
-    if (timeSelected === 'afternoon') {
-      return eventTime >= 12; // Events starting from 12 PM onwards
-    } else if (timeSelected === 'morning') {
-      return eventTime < 12; // Events starting before 12 PM
-    }
-    return true;
-  });
+  const filteredByTypeAndTime =
+    timeSelected === "all"
+      ? filteredByDay
+      : filteredByDay.filter((event) => {
+          const eventTime = parseInt(event.time.split(":")[0]); // Extracting hours from the time
+          if (timeSelected === "afternoon") {
+            return eventTime >= 12; // Events starting from 12 PM onwards
+          } else if (timeSelected === "morning") {
+            return eventTime < 12; // Events starting before 12 PM
+          }
+          return true;
+        });
 
-  const filteredByType = typeSelected === 'all' ? filteredByTypeAndTime : filteredByTypeAndTime.filter(event => {
-    if (typeSelected === 'men') {
-      return event.gender === 'men';
-    } else if (typeSelected === 'female') {
-      return event.gender === 'female';
-    }
-    return true; 
-  });
+  const filteredByType =
+    typeSelected === "all"
+      ? filteredByTypeAndTime
+      : filteredByTypeAndTime.filter((event) => {
+          if (typeSelected === "men") {
+            return event.gender === "men";
+          } else if (typeSelected === "female") {
+            return event.gender === "female";
+          }
+          return true;
+        });
 
   const separateDateAndTime = (date: string) => {
     const dateObj = new Date(date);
@@ -73,9 +89,10 @@ const EventPage = () => {
     return `${formattedDate}`;
   };
 
-  const filteredEvents = filteredByType.filter(event =>
-    event.eventNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    event.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredEvents = filteredByType.filter(
+    (event) =>
+      event.eventNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -90,8 +107,10 @@ const EventPage = () => {
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
-          {uniqueGenders.map(gender => (
-            <option key={gender} value={gender}>{gender}</option>
+          {uniqueGenders.map((gender) => (
+            <option key={gender} value={gender}>
+              {gender}
+            </option>
           ))}
         </select>
         <label htmlFor="day-filter" className="ml-3">
@@ -103,8 +122,10 @@ const EventPage = () => {
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
-          {uniqueDays.map(day => (
-            <option key={day} value={day}>{day}</option>
+          {uniqueDays.map((day) => (
+            <option key={day} value={day}>
+              {day}
+            </option>
           ))}
         </select>
         <label htmlFor="time-filter" className="ml-3">
@@ -156,13 +177,24 @@ const EventPage = () => {
         <tbody>
           {filteredEvents.map((event) => (
             <tr key={event.id}>
-              <td className="p-3 border border-gray-400">{event.eventNumber}</td>
-              <td className="p-1 border border-gray-400">{event.time}<br />{separateDateAndTime(event.date)}</td>
+              <td className="p-3 border border-gray-400">
+                {event.eventNumber}
+              </td>
+              <td className="p-1 border border-gray-400">
+                {event.time}
+                <br />
+                {separateDateAndTime(event.date)}
+              </td>
               <td className="p-3 border border-gray-400">{event.name}</td>
               <td className="p-3 border border-gray-400">{event.gender}</td>
-              <td className="p-3 border border-gray-400">{event.classification}</td>
+              <td className="p-3 border border-gray-400">
+                {event.classification}
+              </td>
               <td className="p-3 border border-gray-400">{event.stage}</td>
               <td className="p-3 border border-gray-400">{event.status}</td>
+              <td className="p-3 border border-gray-400">
+                <Link href={`event/${event.id}`}>GO</Link>
+              </td>
             </tr>
           ))}
         </tbody>

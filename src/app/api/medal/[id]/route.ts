@@ -8,16 +8,17 @@ export const GET = async (
 ) => {
   const { id } = params;
   try {
-    const athlete = await prisma.athlete.findUnique({
+    const medal = await prisma.medal.findUnique({
       where: {
         id: id,
       },
       include: {
         country: true,
-        medal: true,
+        athlete: true,
+        event: true,
       },
     });
-    return new NextResponse(JSON.stringify(athlete), {
+    return new NextResponse(JSON.stringify(medal), {
       status: 200,
     });
   } catch (err) {

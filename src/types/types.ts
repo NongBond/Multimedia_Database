@@ -16,7 +16,7 @@ export type AthleteType = {
   dateOfBirth: string;
   classification: string;
   picture: string;
-  events: EventType[];
+  event: EventType[];
   medal: MedalType[];
 };
 

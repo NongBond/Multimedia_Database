@@ -1,23 +1,16 @@
 import { prisma } from "@/util/connect";
 import { NextRequest, NextResponse } from "next/server";
 
-
-export const GET = async (
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) => {
-  const { id } = params;
+export const GET = async (req: NextRequest) => {
   try {
-    const athlete = await prisma.athlete.findUnique({
-      where: {
-        id: id,
-      },
+    const medals = await prisma.medal.findMany({
       include: {
+        athlete: true,
+        event: true,
         country: true,
-        medal: true,
       },
     });
-    return new NextResponse(JSON.stringify(athlete), {
+    return new NextResponse(JSON.stringify(medals), {
       status: 200,
     });
   } catch (err) {
