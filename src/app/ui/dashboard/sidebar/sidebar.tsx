@@ -31,13 +31,13 @@ const Sidebar = () => {
           <span className="text-white text-xl pl-2">
             {session.data?.user.name}
           </span>
-          <span className="text-white text-xl pl-2">Admin</span>
+          <span className="text-yellow-300 text-xl pl-2">Admin</span>
         </div>
       </div>
       <ul>
         {MENU.map((category) => (
-          <li key={category.title} className="flex flex-col">
-            <span className="text-white text-xl p-3">{category.title}</span>
+          <li key={category.title} className="flex flex-col text-yellow-400">
+            <span className="text-yellow-300 text-xl p-3">{category.title}</span>
             {category.list.map((item) => (
               <MenuLink key={item.title} item={item} />
             ))}

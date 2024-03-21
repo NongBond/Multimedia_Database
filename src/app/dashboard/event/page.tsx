@@ -56,7 +56,7 @@ const EventPage = ({ searchParams }: any) => {
           <AddButton />
         </Link>
       </div>
-      <table className="table-auto w-full border-gray-600 text-center mt-2  text-black">
+      <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
       <thead className="bg-gray-50 border-b-2 border-gray-500">
           <tr>
             <th className="w-24 p-3 text-sm font-semibold tracking-wide border">
@@ -92,14 +92,13 @@ const EventPage = ({ searchParams }: any) => {
             )
             .map((event) => (
               <tr key={event.id} className="">
-                <td className="p-3 border">{event.eventNumber}</td>
-                <td className="p-1 border border-gray-400">{event.time}<br />{separateDateAndTime(event.date)}</td>
+                <td className="p-3 border border-gray-400">{event.eventNumber}</td>
+                <td className="p-3 border border-gray-400">{event.time}<br/>{separateDateAndTime(event.date)}</td>
                 <td className="p-3 border border-gray-400">{event.name}</td>
                 <td className="p-3 border border-gray-400">{event.gender}</td>
                 <td className="p-3 border border-gray-400">{event.classification}</td>
                 <td className="p-3 border border-gray-400">{event.stage}</td>
                 <td className="p-3 border border-gray-400">{event.status}</td>
-                
                 <td className="text-center border border-gray-400">
                     <div className="flex flex-row justify-center gap-2">
                       <Link href={`/dashboard/athlete/${event.id}`}>

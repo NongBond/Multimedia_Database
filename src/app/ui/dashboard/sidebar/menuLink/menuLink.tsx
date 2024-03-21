@@ -12,7 +12,7 @@ const MenuLink = ({ item }: { item: MenuItem }) => {
   const pathName = usePathname();
 
   const isActive =
-    pathName === item.path ? "text-white bg-cyan-700" : "text-gray-300";
+    pathName === item.path ? "text-white bg-yellow-500" : "text-gray-300";
 
   return (
     <Link

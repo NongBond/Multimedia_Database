@@ -94,7 +94,7 @@ const CountryPage = () => {
   };
 
   return (
-    <div className="px-8t-4">
+    <div className="px-8 pt-4">
       <div className="flex justify-between">
         <Search
           placeholder="Search country..."
@@ -113,7 +113,7 @@ const CountryPage = () => {
                 type="file"
                 name="flag"
                 onChange={handleChangeImg}
-                className="p-2 rounded-md bg-cyan-700 mx-auto text-black w-[15rem]"
+                className="p-2 rounded-md bg-yellow-500 mx-auto text-white w-[15rem]"
               />
             </div>
             <div className="flex flex-col gap-3">
@@ -121,40 +121,40 @@ const CountryPage = () => {
                 type="text"
                 placeholder="Name"
                 name="name"
-                className="p-2 rounded-md bg-cyan-700 mx-auto text-black "
+                className="p-2 rounded-md bg-yellow-500 mx-auto text-white placeholder-gray-500"
                 onChange={handleChange}
               />
               <input
                 type="text"
                 placeholder="Abbreviation"
                 name="abbreviation"
-                className="p-2 rounded-md bg-cyan-700 mx-auto text-black "
+                className="p-2 rounded-md bg-yellow-500 mx-auto text-white placeholder-gray-500"
                 onChange={handleChange}
               />
             </div>
 
             <button
               type="submit"
-              className=" bg-cyan-700 px-6 py-2 text-lg rounded-xl text-black"
+              className=" bg-yellow-500 px-6 py-2 text-lg rounded-xl text-white"
             >
               Add
             </button>
           </form>
         </div>
       </div>
-      <table className="table-auto w-full text-center mt-2 text-black">
-        <thead className=" ">
+      <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+        <thead className="bg-gray-50 border-b-2 border-gray-500">
           <tr>
-            <th className="w-32 p-3 text-2xl font-semibold tracking-wide ">
+            <th className="w-32 p-3 text-m font-semibold tracking-wide border">
               Image
             </th>
-            <th className="w-20 p-3 text-2xl font-semibold tracking-wide ">
+            <th className="w-20 p-3 text-m font-semibold tracking-wide border">
               Name
             </th>
-            <th className="w-20 p-3 text-2xl font-semibold tracking-wide ">
+            <th className="w-20 p-3 text-m font-semibold tracking-wide border">
               Abbreviation
             </th>
-            <th className="w-28 p-3 text-2xl font-semibold tracking-wide ">
+            <th className="w-28 p-3 text-sm font-semibold tracking-wide border">
               Action
             </th>
           </tr>
@@ -166,7 +166,7 @@ const CountryPage = () => {
             )
             .map((country) => (
               <tr key={country.id} className="">
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">
                   {
                     <div className="flex flex-col items-center justify-center">
                       <Image
@@ -179,17 +179,17 @@ const CountryPage = () => {
                     </div>
                   }
                 </td>
-                <td className="p-3 text-sm text-black">
+                <td className="p-3 border border-gray-400">
                   <p className="text-xl">{country.name}</p>
                 </td>
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">
                   <p className="text-xl">{country.abbreviation}</p>
                 </td>
 
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">
                   <div>
                     <Link href="/dashboard/athlete/test">
-                      <EditButton />
+                      <EditButton/>
                     </Link>
                   </div>
                 </td>

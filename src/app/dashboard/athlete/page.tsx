@@ -57,9 +57,9 @@ const AthletePage = ({ searchParams }: any) => {
           <AddButton />
         </Link>
       </div>
-      <table className="table-auto w-full border-gray-600 text-center mt-2  text-black">
-        <thead className=" ">
-          <tr className="border-b-blacks border-b-2">
+      <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+        <thead className="bg-gray-50 border-b-2 border-gray-500">
+          <tr>
             <th className="w-32 p-3 text-sm font-semibold tracking-wide ">
               COUNTRY
             </th>
@@ -102,28 +102,29 @@ const AthletePage = ({ searchParams }: any) => {
                     <p>{athlete.country.name}</p>
                   </div>
                 </td>
-                <td className="p-3 text-base text-black">{athlete.bibNo}</td>
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">{athlete.bibNo}</td>
+                <td className="p-3 border border-gray-400">
                   {
-                    <div className="flex flex-col items-center justify-center">
-                      <Image
-                        src={athlete.picture}
-                        alt={`${athlete.name}'s picture`}
-                        width={50}
-                        height={50}
-                      />
-                      <p>{athlete.name}</p>
-                    </div>
+                   <div className="flex flex-row align-center justify-center gap-20">
+                   <Image
+                      src={athlete.picture}
+                      alt={`${athlete.name}'s picture`}
+                      width={100}
+                      height={100}
+                      style={{ alignSelf: 'center' }}
+                    />
+                    <p style={{ alignSelf: 'center', margin: 0 }}>{athlete.name}</p>
+                  </div>
                   }
                 </td>
-                <td className="p-3 text-base text-black">{athlete.gender}</td>
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">{athlete.gender}</td>
+                <td className="p-3 border border-gray-400">
                   {setDateFormat(athlete.dateOfBirth)}
                 </td>
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">
                   {athlete.classification}
                 </td>
-                <td className="p-3 text-base text-black">
+                <td className="p-3 border border-gray-400">
                   <div className="flex flex-row justify-center gap-2">
                     <Link href={`/dashboard/athlete/${athlete.id}`}>
                       <MdEdit width={50} height={50} className="w-6 h-6" />
