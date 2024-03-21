@@ -11,6 +11,7 @@ const EventPage = () => {
   const [uniqueDays, setUniqueDays] = useState<string[]>([]);
   const [uniqueGenders, setUniqueGenders] = useState<string[]>([]);
   const [uniqueTimes, setUniqueTimes] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,9 +20,9 @@ const EventPage = () => {
         setEvent(data);
         const uniqueDays: string[] = Array.from(new Set(data.map((event: EventType) => event.date.split('T')[0])));
         setUniqueDays(uniqueDays);
-        const uniqueGenders :string[] = Array.from(new Set(data.map((event: EventType) => event.gender)));
+        const uniqueGenders: string[] = Array.from(new Set(data.map((event: EventType) => event.gender)));
         setUniqueGenders(uniqueGenders);
-        const uniqueTimes :string[] = Array.from(new Set(data.map((event: EventType) => event.time)));
+        const uniqueTimes: string[] = Array.from(new Set(data.map((event: EventType) => event.time)));
         setUniqueTimes(uniqueTimes);
       } catch (error) {
         console.error("Failed to fetch event:", error);
@@ -72,18 +73,26 @@ const EventPage = () => {
     return `${formattedDate}`;
   };
 
+  const filteredEvents = filteredByType.filter(event =>
+    event.eventNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    event.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="px-28">
       <div className="mt-5 text-white">
-        <label htmlFor="event-filter" className="ml-3">
+        <label htmlFor="type-filter" className="ml-3">
           Event:
         </label>
         <select
-          id="event-filter"
-          onChange={(e) => setEventelected(e.target.value)}
+          id="type-filter"
+          onChange={(e) => setTypeSelected(e.target.value)}
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
+          {uniqueGenders.map(gender => (
+            <option key={gender} value={gender}>{gender}</option>
+          ))}
         </select>
         <label htmlFor="day-filter" className="ml-3">
           Day:
@@ -110,19 +119,13 @@ const EventPage = () => {
           <option value="morning">Morning</option>
           <option value="afternoon">Afternoon</option>
         </select>
-        <label htmlFor="type-filter" className="ml-3">
-          Type:
-        </label>
-        <select
-          id="type-filter"
-          onChange={(e) => setTypeSelected(e.target.value)}
+        <input
+          type="text"
+          placeholder="Search by No or Name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
-        >
-          <option value="all">All</option>
-          {uniqueGenders.map(gender => (
-            <option key={gender} value={gender}>{gender}</option>
-          ))}
-        </select>
+        />
       </div>
       <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
         <thead className="bg-gray-50 border-b-2 border-gray-500">
@@ -151,7 +154,7 @@ const EventPage = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredByType.map((event) => (
+          {filteredEvents.map((event) => (
             <tr key={event.id}>
               <td className="p-3 border border-gray-400">{event.eventNumber}</td>
               <td className="p-1 border border-gray-400">{event.time}<br />{separateDateAndTime(event.date)}</td>

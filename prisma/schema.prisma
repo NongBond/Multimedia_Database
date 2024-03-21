@@ -89,6 +89,7 @@ model Event {
   date           DateTime
   time           String
   athletes       Athlete[] @relation("AthleteToEvent")
+  medal          Medal[]
 }
 
 model Result {
@@ -108,6 +109,8 @@ model Medal {
   athlete   Athlete   @relation(fields: [athleteId], references: [id])
   countryId String
   country   Country   @relation(fields: [countryId], references: [id])
+  eventId   String
+  event     Event     @relation(fields: [eventId], references: [id])
 }
 
 enum MedalType {

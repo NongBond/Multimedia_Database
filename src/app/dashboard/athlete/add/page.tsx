@@ -96,7 +96,7 @@ const AddAthletePage: React.FC = () => {
 
       const data = await res.json();
       // router.push(`/athlete/${data.id}`);
-      router.push(`/athlete`);
+      router.push(`/dashboard/athlete`);
     } catch (error) {
       console.error("Error adding athlete:", error);
     }
@@ -106,40 +106,40 @@ const AddAthletePage: React.FC = () => {
     <div className="container mx-auto mt-8 px-8 pt-4">
       <form onSubmit={submitData} className="gap-6 rounded-lg">
         <div className="flex flex-col gap-6 text-xl">
-          <label htmlFor="picture" className="text-white text-xl m-3 mx-auto">
+          <label htmlFor="picture" className="text-black text-xl m-3 mx-auto">
             Picture
           </label>
           <input
             type="file"
             name="picture"
             onChange={handleChangeImg}
-            className="p-2 rounded-md bg-yellow-500 mx-auto text-white w-[20rem]"
+            className="p-2 rounded-md bg-yellow-500 mx-auto text-black w-[20rem]"
             />
           <input
             type="text"
             placeholder="Full Name"
             name="name"
-            className="p-2 rounded-md mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-black w-[30rem]"
             onChange={handleChange}
           />
           <input
             type="number"
             placeholder="Bib Number"
             name="bibNo"
-            className="p-2 rounded-md mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-black w-[30rem]"
             onChange={handleChange}
           />
           <input
             type="text"
             placeholder="classification"
             name="classification"
-            className="p-2 rounded-md mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-black w-[30rem]"
             onChange={handleChange}
           />
           <select
             name="gender"
             id="gender"
-            className="p-2 rounded-md mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-black w-[30rem]"
             onChange={handleChange}
           >
             <option value="">Gender</option>
@@ -149,7 +149,7 @@ const AddAthletePage: React.FC = () => {
           <select
             name="countryId"
             id="country"
-            className="p-2 rounded-md mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-black w-[30rem]"
             onChange={handleChange}
             value={input.countryId}
           >

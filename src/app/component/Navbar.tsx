@@ -14,16 +14,6 @@ const Navbar = async () => {
           </Link>
         </div>
         <div className="flex gap-5 items-center">
-          <form>
-            <div className="form-control">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search..."
-                className="input input-bordered w-[22rem] p-2 rounded-lg mr-6"
-              />
-            </div>
-          </form>
           <div className="text-orange-300">
             <Link href="/athlete" className="focus:font-bold">
               Athlete

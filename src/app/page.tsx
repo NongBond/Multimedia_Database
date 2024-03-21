@@ -16,18 +16,18 @@ const fetchCountry = async () => {
 export default async function HomePage() {
   const countries: CountryType[] = await fetchCountry();
   return (
-    <div className="flex flex-col items-center justify-center gap-10 pt-10">
+    <div className="flex flex-col items-center justify-center gap-10 mx-auto pt-10 w-4/5">
       <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
         <thead className="bg-gray-50 border-b-2 border-gray-500">
           <tr>
-            <th className="w-32 p-3 text-sm font-semibold tracking-wide ">
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">
               COUNTRY
             </th>
-            <th className="w-20 p-3 text-sm font-semibold tracking-wide ">
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">
               GOLD
             </th>
-            <th className="p-3 text-sm font-semibold tracking-wide ">SILVER</th>
-            <th className="w-24 p-3 text-sm font-semibold tracking-wide ">
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">SILVER</th>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">
               BRONZE
             </th>
           </tr>

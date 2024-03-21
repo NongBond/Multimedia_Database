@@ -23,7 +23,7 @@ const CountriesPage = async () => {
         {contries.map((country) => (
           <div
             key={country.id}
-            className="flex flex-col items-center justify-center gap-4 bg-gray-400 p-5 rounded-xl w-60 h-60"
+            className="flex flex-col items-center justify-center gap-4 bg-white p-5 rounded-xl w-60 h-60"
           >
             <h2 className="text-xl font-bold">{country.name}</h2>
             <Image
@@ -32,11 +32,10 @@ const CountriesPage = async () => {
               width={100}
               height={100}
             />
-            <div>
+            <div className="mt-3 text-center">
               <Link
                 href={`countries/${country.id}`}
-                className="bg-slate-700 text-gray-100 p-3 rounded-xl"
-              >
+                className="bg-slate-700 text-gray-100 p-3 rounded-xl">
                 View Athletes
               </Link>
             </div>

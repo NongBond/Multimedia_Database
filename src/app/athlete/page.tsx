@@ -1,8 +1,8 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import { AthleteType, CountryType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
 
 const fetchAthlete = async () => {
   const res = await fetch(`http://localhost:3000/api/athlete`, {
@@ -37,6 +37,8 @@ const AthletePage = () => {
   const [country, setCountry] = useState<CountryType[]>([]);
   const [athletes, setAthletes] = useState<AthleteType[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<AthleteType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +50,13 @@ const AthletePage = () => {
     fetchData();
   }, []);
 
-  const filteredAthletes =
-    selectedCountry === "all"
-      ? athletes
-      : athletes.filter((athlete) => athlete.country.name === selectedCountry);
+  useEffect(() => {
+    const filteredAthletes =
+      selectedCountry === "all"
+        ? athletes
+        : athletes.filter((athlete) => athlete.country.name === selectedCountry);
+    setSearchResults(filteredAthletes.filter(athlete => athlete.bibNo.includes(searchQuery) || athlete.name.toLowerCase().includes(searchQuery.toLowerCase())));
+  }, [athletes, selectedCountry, searchQuery]);
 
   return (
     <div className="px-28">
@@ -69,6 +74,13 @@ const AthletePage = () => {
             </option>
           ))}
         </select>
+        <input
+          type="text"
+          placeholder="Search by Bib No or Name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="ml-2 p-2 rounded-md bg-gray-100 text-gray-700"
+        />
       </div>
       <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
         <thead className="bg-gray-50 border-b-2 border-gray-500">
@@ -95,9 +107,9 @@ const AthletePage = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredAthletes.map((athlete) => (
+          {searchResults.map((athlete) => (
             <tr key={athlete.id} className="border-b-2 border-gray-500 ">
-              <td className="p-3 text-sm text-gray-700">
+              <td className="p-3 text-base text-gray-700 border border-black">
                 <div className="flex flex-col items-center justify-center">
                   <Image
                     src={athlete.country.flag}
@@ -109,30 +121,31 @@ const AthletePage = () => {
                   <p>{athlete.country.name}</p>
                 </div>
               </td>
-              <td className="p-3 text-base text-gray-700">{athlete.bibNo}</td>
-              <td className="p-3 text-base text-gray-700">
-                {
-                  <div className="flex flex-col items-center justify-center">
-                    <Image
+              <td className="p-3 text-base text-gray-700 border border-black">{athlete.bibNo}</td>
+              <td className="p-3 text-base text-gray-700 border border-black">
+              {
+                   <div className="flex flex-row align-center justify-center gap-20">
+                   <Image
                       src={athlete.picture}
                       alt={`${athlete.name}'s picture`}
-                      width={50}
-                      height={50}
+                      width={100}
+                      height={100}
+                      style={{ alignSelf: 'center' }}
                     />
-                    <p>{athlete.name}</p>
+                    <p style={{ alignSelf: 'center', margin: 0 }}>{athlete.name}</p>
                   </div>
-                }
+                  }
               </td>
-              <td className="p-3 text-base text-gray-700">{athlete.gender}</td>
-              <td className="p-3 text-base text-gray-700">
+              <td className="p-3 text-base text-gray-700 border border-black">{athlete.gender}</td>
+              <td className="p-3 text-base text-gray-700 border border-black">
                 {setDateFormat(athlete.dateOfBirth)}
               </td>
-              <td className="p-3 text-base text-gray-700">
+              <td className="p-3 text-base text-gray-700 border border-black">
                 {athlete.classification}
               </td>
               <td>
                 <Link href={`/athlete/${athlete.id}`}>
-                  <button className="text-blue-500 bg-orange-300 px-4 py-2 rounded-lg font-bold w-18">
+                  <button className="bg-slate-700 px-6 py-3 text-m rounded-xl text-white">
                     View
                   </button>
                 </Link>

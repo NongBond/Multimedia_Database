@@ -13,28 +13,52 @@ const fetchEvent = async (id: string) => {
   return res.json();
 };
 
+const fetchAthlete = async () => {
+  const res = await fetch(`http://localhost:3000/api/athlete`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch athlete");
+  }
+  return res.json();
+};
+
 const SingleEventPage = async ({ params }: { params: { id: string } }) => {
   const event: EventType = await fetchEvent(params.id);
-
+  const athletes = await fetchAthlete();
   return (
-    <div>
-      <Link href="/event" className="bg-orange-300 px-4 py-2 rounded-lg">
-        Back
-      </Link>
-      <div className="flex flex-row gap-8 items-center justify-center">
-        <div className="flex flex-col gap-4 text-white">
-          <div>
-            <p className="font-medium text-lg mb-2">Name:</p>
-            <p className="pl-4">{event.name}</p>
-          </div>
-          <div className="flex flex-row gap-1 text-white items-center ">
-            <p className="font-medium text-lg">Age:</p>{" "}
-          </div>
-          <div className="flex flex-row gap-1 text-white items-center ">
-            <p className="font-medium text-lg">Gender:</p> <p>{event.gender}</p>
-          </div>
-        </div>
-      </div>
+    <div className="flex flex-col items-center justify-center gap-10 mx-auto pt-10 w-4/5">
+      <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+        <thead className="bg-gray-50 border-b-2 border-gray-500">
+          <tr>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide">
+              event
+            </th>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide">
+              GOLD
+            </th>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide">
+              SILVER
+            </th>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide">
+              BRONZE
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr key={event.id} className="border-b-2 border-gray-500 ">
+                <td className="p-3 text-base text-gray-700">
+                  <div className="flex items-center justify-center gap-2">
+                    <span>{event.name}</span>
+                  </div>
+                </td>
+                <td className="p-3 text-base text-gray-700">{}</td>
+                <td className="p-3 text-base text-gray-700">{}</td>
+                <td className="p-3 text-base text-gray-700">{}</td>
+              </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

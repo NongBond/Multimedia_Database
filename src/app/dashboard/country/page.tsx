@@ -88,6 +88,7 @@ const CountryPage = () => {
       });
 
       const data = await res.json();
+      window.location.reload();
     } catch (error) {
       console.error("Error adding athlete:", error);
     }

@@ -42,11 +42,22 @@ const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
   ).length;
 
   return (
-    <div>
-      <Link href="/athlete" className="bg-orange-300 px-4 py-2 rounded-lg">
+    <div className="pt-4 my-auto mx-auto flex flex-col">
+      <Link href="/athlete" className="bg-yellow-400 px-2 py-3 rounded-lg text-white ml-4 w-20 text-center">
         Back
       </Link>
-      <div className="flex flex-row gap-8 items-center justify-center">
+      <div className="flex lg:flex-row md:flex-col sm:flex-col gap-8 items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-3">
+              <div className="flex items-center justify-center">
+                <Image
+                  src={athlete.country.flag}
+                  alt={`${athlete.country.name}'s picture`}
+                  width={50}
+                  height={50}
+                />
+              </div>
+              <h2 className="mb-3 font-medium text-lg text-center text-white">Country: {athlete.country.name}</h2>
+            </div>
         <div>
           <Image
             src={athlete.picture}
@@ -58,33 +69,18 @@ const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
         </div>
         <div className="flex flex-col gap-4 text-white">
           <div>
-            <p className="font-medium text-lg mb-2">Name:</p>
-            <p className="pl-4">{athlete.name}</p>
-          </div>
-          <div>
-            <h2 className="mb-3 font-medium text-lg">Country: </h2>
-            <div className="flex flex-row items-center justify-center gap-3">
-              <Image
-                src={athlete.country.flag}
-                alt={`${athlete.country.name}'s picture`}
-                width={50}
-                height={50}
-              />
-              <p>{athlete.country.name}</p>
-            </div>
+            <p className="font-medium text-lg mb-2">Name: {athlete.name}</p>
           </div>
           <div className="flex flex-row gap-1 text-white items-center ">
-            <p className="font-medium text-lg">Age:</p>{" "}
-            <p>{calculateAge(athlete.dateOfBirth)}</p>
+            <p className="font-medium text-lg">Age: {calculateAge(athlete.dateOfBirth)}</p>
           </div>
           <div className="flex flex-row gap-1 text-white items-center ">
-            <p className="font-medium text-lg">Gender:</p>{" "}
-            <p>{athlete.gender}</p>
+            <p className="font-medium text-lg">Gender: {athlete.gender}</p>
           </div>
         </div>
       </div>
       <div>
-        <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+        <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200 w-3/5 mx-auto">
           <thead className="bg-gray-50 border-b-2 border-gray-500">
             <tr>
               <th className="w-20 p-3 text-sm font-semibold tracking-wide ">
