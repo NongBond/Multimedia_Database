@@ -133,7 +133,6 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div>
       <div>
         <form onSubmit={submitData} className="grid-cols-10">
           <div className="w-full grid-cols-4">
@@ -143,7 +142,7 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
               width={50}
               height={50}
               onClick={handleOldPictureClick}
-              className="w-48 h-56 cursor-pointer block mx-auto m-8"
+              className="w-40 h-40 cursor-pointer block mx-auto m-8"
             />
             <input
               type="file"
@@ -160,7 +159,7 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
                 placeholder="Full Name"
                 value={input.name}
                 name="name"
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
               <input
@@ -168,7 +167,7 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
                 placeholder="Bib Number"
                 name="bibNo"
                 value={input.bibNo}
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
               <input
@@ -176,13 +175,13 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
                 placeholder="classification"
                 name="classification"
                 value={input.classification}
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
               <select
                 name="gender"
                 id="gender"
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               >
                 <option value={input.gender}>{input.gender}</option>
@@ -196,7 +195,7 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
               <select
                 name="countryId"
                 id="country"
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md mx-auto text-black w-[30rem]"
                 onChange={handleChange}
                 value={input.countryId}
               >
@@ -212,12 +211,12 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
                 placeholder="Date of Birth"
                 name="dateOfBirth"
                 value={input.dateOfBirth.split("T")[0]}
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white"
+                className="p-2 rounded-md mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
               <button
                 type="submit"
-                className=" bg-slate-700 px-6 py-3 text-lg rounded-xl mt-10 w-auto ml-6 text-white"
+                className=" bg-yellow-500 hover:bg-white px-6 py-3 text-lg rounded-xl mt-10 w-[30rem] text-white hover:text-yellow-500 mx-auto"
               >
                 Update
               </button>
@@ -225,7 +224,6 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 

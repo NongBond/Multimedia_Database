@@ -103,45 +103,43 @@ const AddAthletePage: React.FC = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitData}>
-        <div className="block mb-6 mx-auto w-fit">
-          <label htmlFor="picture" className="text-white text-xl m-3">
+    <div className="container mx-auto mt-8 px-8 pt-4">
+      <form onSubmit={submitData} className="gap-6 rounded-lg">
+        <div className="flex flex-col gap-6 text-xl">
+          <label htmlFor="picture" className="text-white text-xl m-3 mx-auto">
             Picture
           </label>
           <input
             type="file"
             name="picture"
             onChange={handleChangeImg}
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[20rem]"
-          />
-        </div>
-        <div className="flex flex-wrap gap-6 text-xl">
+            className="p-2 rounded-md bg-yellow-500 mx-auto text-white w-[20rem]"
+            />
           <input
             type="text"
             placeholder="Full Name"
             name="name"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-white w-[30rem]"
             onChange={handleChange}
           />
           <input
             type="number"
             placeholder="Bib Number"
             name="bibNo"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-white w-[30rem]"
             onChange={handleChange}
           />
           <input
             type="text"
             placeholder="classification"
             name="classification"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-white w-[30rem]"
             onChange={handleChange}
           />
           <select
             name="gender"
             id="gender"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-white w-[30rem]"
             onChange={handleChange}
           >
             <option value="">Gender</option>
@@ -151,7 +149,7 @@ const AddAthletePage: React.FC = () => {
           <select
             name="countryId"
             id="country"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto text-white w-[30rem]"
             onChange={handleChange}
             value={input.countryId}
           >
@@ -166,16 +164,16 @@ const AddAthletePage: React.FC = () => {
             type="date"
             placeholder="Date of Birth"
             name="dateOfBirth"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+            className="p-2 rounded-md mx-auto w-[30rem]"
             onChange={handleChange}
           />
-        </div>
-        <button
+          <button
           type="submit"
-          className="w-full bg-slate-700 px-6 py-3 text-lg rounded-xl text-white"
+          className="w-[30rem] bg-yellow-500 hover:bg-white text-white hover:text-yellow-500 px-6 py-3 text-lg rounded-xl text-white mx-auto"
         >
           Add
         </button>
+        </div>
       </form>
     </div>
   );

@@ -48,8 +48,13 @@ const EventPage = () => {
   const filteredByDay = daySelected === 'all' ? filterevent : filterevent.filter(event => event.date.includes(daySelected));
 
   const filteredByTypeAndTime = timeSelected === 'all' ? filteredByDay : filteredByDay.filter(event => {
-    const eventTime = event.time; // Extracting time part from the date
-    return eventTime === timeSelected;
+    const eventTime = parseInt(event.time.split(':')[0]); // Extracting hours from the time
+    if (timeSelected === 'afternoon') {
+      return eventTime >= 12; // Events starting from 12 PM onwards
+    } else if (timeSelected === 'morning') {
+      return eventTime < 12; // Events starting before 12 PM
+    }
+    return true;
   });
 
   const filteredByType = typeSelected === 'all' ? filteredByTypeAndTime : filteredByTypeAndTime.filter(event => {
@@ -102,9 +107,8 @@ const EventPage = () => {
           className="ml-3 p-2 rounded-md bg-gray-100 text-gray-700"
         >
           <option value="all">All</option>
-          {uniqueTimes.map(time => (
-            <option key={time} value={time}>{time}</option>
-          ))}
+          <option value="morning">Morning</option>
+          <option value="afternoon">Afternoon</option>
         </select>
         <label htmlFor="type-filter" className="ml-3">
           Type:

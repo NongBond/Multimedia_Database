@@ -1,19 +1,6 @@
 "use client";
-import { CountryType } from "@/types/types";
 import { useRouter } from "next/navigation";
-import React, { OptionHTMLAttributes, useEffect, useState } from "react";
-
-type InputType = {
-  id: string;
-  eventNumber: string;
-  name: string;
-  classification?: string;
-  gender: string;
-  date: string;
-  time: string;
-  stage: string;
-  status: string;
-};
+import React, { useEffect, useState } from "react";
 
 const AddEventPage: React.FC = () => {
   const router = useRouter();
@@ -28,10 +15,7 @@ const AddEventPage: React.FC = () => {
     status: "",
   });
 
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setInput((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
@@ -58,72 +42,41 @@ const AddEventPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitData}>
-        <div className="flex flex-wrap gap-6 text-xl">
-          <input
-            type="text"
-            placeholder="Event Number"
-            name="eventNumber"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="classification"
-            name="classification"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-          <select
-            name="gender"
-            id="gender"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          >
-            <option value="">Gender</option>
-            <option value="men">Men</option>
-            <option value="female">Female</option>
-          </select>
-          <input
-            type="date"
-            placeholder="Date"
-            name="date"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-          <input
-            type="time"
-            placeholder="Time"
-            name="time"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Stage"
-            name="stage"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Status"
-            name="status"
-            className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
-            onChange={handleChange}
-          />
-        </div>
+    <div className="container mx-auto mt-8 px-8 pt-4">
+      <form onSubmit={submitData} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 rounded-lg">
+        <input
+          type="text"
+          placeholder="Event Number"
+          name="eventNumber"
+          className="input-field rounded-md h-10 px-4"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="Name"
+          name="name"
+          className="input-field rounded-md h-10 px-4"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="Classification"
+          name="classification"
+          className="input-field rounded-md h-10 px-4"
+          onChange={handleChange}
+        />
+        <select name="gender" className="input-field rounded-md h-10 px-4" onChange={handleChange}>
+          <option value="">Gender</option>
+          <option value="men">Men</option>
+          <option value="female">Female</option>
+        </select>
+        <input type="date" placeholder="Date" name="date" className="input-field rounded-md h-10 px-4" onChange={handleChange} />
+        <input type="time" placeholder="Time" name="time" className="input-field rounded-md h-10 px-4" onChange={handleChange} />
+        <input type="text" placeholder="Stage" name="stage" className="input-field rounded-md h-10 px-4" onChange={handleChange} />
+        <input type="text" placeholder="Status" name="status" className="input-field rounded-md h-10 px-4" onChange={handleChange} />
         <button
           type="submit"
-          className="w-full bg-slate-700 px-6 py-3 text-lg rounded-xl text-white"
+          className="col-span-full bg-yellow-500 hover:bg-white text-white hover:text-yellow-500 font-semibold py-2 px-4 rounded"
         >
           Add
         </button>
