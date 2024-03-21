@@ -81,6 +81,7 @@ model Event {
   eventNumber    String
   classification String
   stage          String
+  status         String?
   gender         String
   name           String
   date           DateTime

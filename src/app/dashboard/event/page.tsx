@@ -92,7 +92,7 @@ const EventPage = ({ searchParams }: any) => {
             )
             .map((event) => (
               <tr key={event.id} className="">
-                <td className="p-3 border">{event.id}</td>
+                <td className="p-3 border">{event.eventNumber}</td>
                 <td className="p-1 border border-gray-400">{event.time}<br />{separateDateAndTime(event.date)}</td>
                 <td className="p-3 border border-gray-400">{event.name}</td>
                 <td className="p-3 border border-gray-400">{event.gender}</td>

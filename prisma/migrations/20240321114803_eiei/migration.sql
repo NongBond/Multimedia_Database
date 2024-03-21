@@ -56,7 +56,6 @@ CREATE TABLE "Athlete" (
     "dateOfBirth" TIMESTAMP(3) NOT NULL,
     "classification" TEXT NOT NULL,
     "picture" TEXT NOT NULL,
-    "eventId" TEXT NOT NULL,
 
     CONSTRAINT "Athlete_pkey" PRIMARY KEY ("id")
 );
@@ -79,6 +78,7 @@ CREATE TABLE "Event" (
     "eventNumber" TEXT NOT NULL,
     "classification" TEXT NOT NULL,
     "stage" TEXT NOT NULL,
+    "status" TEXT,
     "gender" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
@@ -99,6 +99,12 @@ CREATE TABLE "Result" (
     CONSTRAINT "Result_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_AthleteToEvent" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
@@ -117,6 +123,12 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 -- CreateIndex
 CREATE UNIQUE INDEX "Athlete_bibNo_key" ON "Athlete"("bibNo");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "_AthleteToEvent_AB_unique" ON "_AthleteToEvent"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_AthleteToEvent_B_index" ON "_AthleteToEvent"("B");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -127,4 +139,7 @@ ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Athlete" ADD CONSTRAINT "Athlete_countryId_fkey" FOREIGN KEY ("countryId") REFERENCES "Country"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Athlete" ADD CONSTRAINT "Athlete_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "_AthleteToEvent" ADD CONSTRAINT "_AthleteToEvent_A_fkey" FOREIGN KEY ("A") REFERENCES "Athlete"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_AthleteToEvent" ADD CONSTRAINT "_AthleteToEvent_B_fkey" FOREIGN KEY ("B") REFERENCES "Event"("id") ON DELETE CASCADE ON UPDATE CASCADE;

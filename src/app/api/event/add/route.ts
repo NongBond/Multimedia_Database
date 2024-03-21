@@ -7,14 +7,14 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json();
 
         const createInput: Prisma.EventCreateInput = {
-            name: body.name,
             eventNumber: body.eventNumber,
-            classification: body.classification,
-            gender: body.gender,
-            athletes: { connect: { id: body.athleteId } },
-            date: body.date,
-            time: body.time,
-            stage: body.stage,
+            name: "",
+            classification: "",
+            gender: "",
+            date: "",
+            time: "",
+            stage: "",
+            status: "",
         };
 
         await prisma.event.create({
