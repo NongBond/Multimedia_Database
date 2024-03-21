@@ -9,6 +9,9 @@ export const GET = async (req: NextRequest) => {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        medals: true,
+      },
       where: {
         ...(country && { name: country }),
       },

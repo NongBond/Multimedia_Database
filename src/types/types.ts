@@ -17,7 +17,7 @@ export type AthleteType = {
   classification: string;
   picture: string;
   events: EventType[];
-  medals: MedalType[];
+  medal: MedalType[];
 };
 
 export type EventType = {
@@ -36,27 +36,12 @@ export type EventType = {
   results: ResultType[];
 };
 
-export type MedalType = {
-  id: string;
-  createdAt: string;
-  type: MedalTypeEnum;
-  athlete: AthleteType;
-  country: CountryType;
-  event: EventType;
-};
-
 export type ResultType = {
   id: string;
   createdAt: string;
   result: string;
   event: EventType;
 };
-
-export enum MedalTypeEnum {
-  GOLD = "GOLD",
-  SILVER = "SILVER",
-  BRONZE = "BRONZE",
-}
 
 export type UserType = {
   id: number;
@@ -67,3 +52,17 @@ export type UserType = {
   role: string;
   image: string;
 };
+
+export type MedalType = {
+  id: string;
+  createdAt: string;
+  type: MedalTypeEnum;
+  athlete: AthleteType;
+  country: CountryType;
+};
+
+export enum MedalTypeEnum {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+}

@@ -13,6 +13,7 @@ export const GET = async (
       },
       include: {
         athletes: true,
+        medals: true,
       },
     });
     return new NextResponse(JSON.stringify(athlete), {

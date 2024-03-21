@@ -64,6 +64,7 @@ model Athlete {
   picture        String
   country        Country  @relation(fields: [countryId], references: [id])
   events         Event[]  @relation("AthleteToEvent")
+  medal          Medal[]
 }
 
 model Country {
@@ -73,6 +74,7 @@ model Country {
   abbreviation String    @default("")
   flag         String    @default("https://www.countryflags.io/US/flat/64.png")
   athletes     Athlete[]
+  medals       Medal[]
 }
 
 model Event {
@@ -96,4 +98,20 @@ model Result {
   rank      Int?
   result    String?
   points    Int?
+}
+
+model Medal {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  type      MedalType
+  athleteId String
+  athlete   Athlete   @relation(fields: [athleteId], references: [id])
+  countryId String
+  country   Country   @relation(fields: [countryId], references: [id])
+}
+
+enum MedalType {
+  GOLD
+  SILVER
+  BRONZE
 }

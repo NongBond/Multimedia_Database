@@ -31,6 +31,15 @@ const calculateAge = (date: string) => {
 
 const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
   const athlete: AthleteType = await fetchAthlete(params.id);
+  const goldMedals = athlete.medal.filter(
+    (medal) => medal.type === "GOLD"
+  ).length;
+  const silverMedals = athlete.medal.filter(
+    (medal) => medal.type === "SILVER"
+  ).length;
+  const bronzeMedals = athlete.medal.filter(
+    (medal) => medal.type === "BRONZE"
+  ).length;
 
   return (
     <div>
@@ -73,6 +82,30 @@ const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
             <p>{athlete.gender}</p>
           </div>
         </div>
+      </div>
+      <div>
+        <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+          <thead className="bg-gray-50 border-b-2 border-gray-500">
+            <tr>
+              <th className="w-20 p-3 text-sm font-semibold tracking-wide ">
+                GOLD
+              </th>
+              <th className="p-3 text-sm font-semibold tracking-wide ">
+                SILVER
+              </th>
+              <th className="w-24 p-3 text-sm font-semibold tracking-wide ">
+                BRONZE
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr key={athlete.id} className="border-b-2 border-gray-500 ">
+              <td className="p-3 text-base text-gray-700">{goldMedals}</td>
+              <td className="p-3 text-base text-gray-700">{silverMedals}</td>
+              <td className="p-3 text-base text-gray-700">{bronzeMedals}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

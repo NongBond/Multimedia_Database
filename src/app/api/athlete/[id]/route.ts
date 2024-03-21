@@ -38,6 +38,7 @@ export const GET = async (
       },
       include: {
         country: true,
+        medal: true,
       },
     });
     return new NextResponse(JSON.stringify(athlete), {
