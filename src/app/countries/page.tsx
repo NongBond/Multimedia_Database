@@ -1,6 +1,7 @@
 import { CountryType } from "@/types/types";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const fetchCountry = async () => {
   const res = await fetch(`http://localhost:3000/api/country`, {
@@ -32,9 +33,12 @@ const CountriesPage = async () => {
               height={100}
             />
             <div>
-              <button className="bg-slate-700 text-gray-100 p-3 rounded-xl">
+              <Link
+                href={`countries/${country.id}`}
+                className="bg-slate-700 text-gray-100 p-3 rounded-xl"
+              >
                 View Athletes
-              </button>
+              </Link>
             </div>
           </div>
         ))}

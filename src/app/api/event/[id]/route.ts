@@ -12,7 +12,11 @@ export const GET = async (
         id: id,
       },
       include: {
-        athletes: true,
+        athletes: {
+          include: {
+            country: true,
+          },
+        },
       },
     });
     return new NextResponse(JSON.stringify(athlete), {
@@ -26,3 +30,37 @@ export const GET = async (
     );
   }
 };
+
+// export const DELETE = async (
+//   req: NextRequest,
+//   { params }: { params: { eventId: string; athleteId: string } }
+// ) => {
+//   const { eventId, athleteId } = params;
+//   console.log(eventId, athleteId);
+//   try {
+//     await prisma.event.update({
+//       where: {
+//         id: eventId,
+//       },
+//       data: {
+//         athletes: {
+//           disconnect: {
+//             id: athleteId,
+//           },
+//         },
+//       },
+//     });
+//     return new NextResponse(
+//       JSON.stringify({ message: "Athlete removed from event" }),
+//       {
+//         status: 200,
+//       }
+//     );
+//   } catch (err) {
+//     console.error(err);
+//     return new NextResponse(
+//       JSON.stringify({ message: "Something went wrong" }),
+//       { status: 500 }
+//     );
+//   }
+// };

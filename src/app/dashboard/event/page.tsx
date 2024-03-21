@@ -29,10 +29,10 @@ const handleDelete = async (id: string) => {
 };
 
 const separateDateAndTime = (date: string) => {
-    const dateObj = new Date(date);
-    const formattedDate = dateObj.toLocaleDateString();
-    return `${formattedDate}`;
-  };
+  const dateObj = new Date(date);
+  const formattedDate = dateObj.toLocaleDateString();
+  return `${formattedDate}`;
+};
 
 const EventPage = ({ searchParams }: any) => {
   const [event, setEvent] = useState<EventType[]>([]);
@@ -57,7 +57,7 @@ const EventPage = ({ searchParams }: any) => {
         </Link>
       </div>
       <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
-      <thead className="bg-gray-50 border-b-2 border-gray-500">
+        <thead className="bg-gray-50 border-b-2 border-gray-500">
           <tr>
             <th className="w-24 p-3 text-sm font-semibold tracking-wide border">
               No
@@ -92,20 +92,37 @@ const EventPage = ({ searchParams }: any) => {
             )
             .map((event) => (
               <tr key={event.id} className="">
-                <td className="p-3 border border-gray-400">{event.eventNumber}</td>
-                <td className="p-3 border border-gray-400">{event.time}<br/>{separateDateAndTime(event.date)}</td>
+                <td className="p-3 border border-gray-400">
+                  {event.eventNumber}
+                </td>
+                <td className="p-3 border border-gray-400">
+                  {event.time}
+                  <br />
+                  {separateDateAndTime(event.date)}
+                </td>
                 <td className="p-3 border border-gray-400">{event.name}</td>
                 <td className="p-3 border border-gray-400">{event.gender}</td>
-                <td className="p-3 border border-gray-400">{event.classification}</td>
+                <td className="p-3 border border-gray-400">
+                  {event.classification}
+                </td>
                 <td className="p-3 border border-gray-400">{event.stage}</td>
                 <td className="p-3 border border-gray-400">{event.status}</td>
                 <td className="text-center border border-gray-400">
-                    <div className="flex flex-row justify-center gap-2">
-                      <Link href={`/dashboard/athlete/${event.id}`}>
-                        <MdEdit width={50} height={50} className="w-6 h-6 cursor-pointer" />
-                      </Link>
-                      <MdDelete width={50} height={50} className="w-6 h-6 cursor-pointer" onClick={() => handleDelete(event.id)}/>
-                    </div>
+                  <div className="flex flex-row justify-center gap-2">
+                    <Link href={`/dashboard/event/${event.id}`}>
+                      <MdEdit
+                        width={50}
+                        height={50}
+                        className="w-6 h-6 cursor-pointer"
+                      />
+                    </Link>
+                    <MdDelete
+                      width={50}
+                      height={50}
+                      className="w-6 h-6 cursor-pointer"
+                      onClick={() => handleDelete(event.id)}
+                    />
+                  </div>
                 </td>
               </tr>
             ))}
