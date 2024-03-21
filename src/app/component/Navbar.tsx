@@ -25,11 +25,6 @@ const Navbar = async () => {
             </div>
           </form>
           <div className="text-orange-300">
-            <Link href="/schedule" className="focus:font-bold">
-              Schedule
-            </Link>
-          </div>
-          <div className="text-orange-300">
             <Link href="/athlete" className="focus:font-bold">
               Athlete
             </Link>

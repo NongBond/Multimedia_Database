@@ -17,11 +17,11 @@ const EventPage = () => {
       try {
         const data = await fetchEvent();
         setEvent(data);
-        const uniqueDays = Array.from(new Set(data.map(event => event.date.split('T')[0])));
+        const uniqueDays: string[] = Array.from(new Set(data.map((event: EventType) => event.date.split('T')[0])));
         setUniqueDays(uniqueDays);
-        const uniqueGenders = Array.from(new Set(data.map(event => event.gender)));
+        const uniqueGenders :string[] = Array.from(new Set(data.map((event: EventType) => event.gender)));
         setUniqueGenders(uniqueGenders);
-        const uniqueTimes = Array.from(new Set(data.map(event => event.time)));
+        const uniqueTimes :string[] = Array.from(new Set(data.map((event: EventType) => event.time)));
         setUniqueTimes(uniqueTimes);
       } catch (error) {
         console.error("Failed to fetch event:", error);

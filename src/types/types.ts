@@ -30,6 +30,7 @@ export type EventType = {
   time: string;
   stage: string;
   status: string;
+  scoreType: string;
   athletes: AthleteType[];
   medals: MedalType[];
   results: ResultType[];
