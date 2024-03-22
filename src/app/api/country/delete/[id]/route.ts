@@ -6,6 +6,7 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   const { id } = params;
+  console.log(id);
   try {
     await prisma.country.delete({ where: { id: id } });
     return new NextResponse(JSON.stringify("delete"), { status: 200 });

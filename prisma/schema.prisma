@@ -62,7 +62,7 @@ model Athlete {
   dateOfBirth    DateTime
   classification String
   picture        String
-  country        Country  @relation(fields: [countryId], references: [id])
+  country        Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
   events         Event[]  @relation("AthleteToEvent")
   medal          Medal[]
 }
@@ -106,11 +106,11 @@ model Medal {
   createdAt DateTime  @default(now())
   type      MedalType
   athleteId String
-  athlete   Athlete   @relation(fields: [athleteId], references: [id])
+  athlete   Athlete   @relation(fields: [athleteId], references: [id], onDelete: Cascade)
   countryId String
-  country   Country   @relation(fields: [countryId], references: [id])
+  country   Country   @relation(fields: [countryId], references: [id], onDelete: Cascade)
   eventId   String
-  event     Event     @relation(fields: [eventId], references: [id])
+  event     Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
 enum MedalType {

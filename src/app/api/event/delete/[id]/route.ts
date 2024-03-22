@@ -8,7 +8,7 @@ export const DELETE = async (
   const { id } = params;
   console.log(id);
   try {
-    await prisma.country.delete({ where: { id: id } });
+    await prisma.event.delete({ where: { id: id } });
     return new NextResponse(JSON.stringify("delete"), { status: 200 });
   } catch (err) {
     console.error(err);
@@ -18,4 +18,3 @@ export const DELETE = async (
     );
   }
 };
-
