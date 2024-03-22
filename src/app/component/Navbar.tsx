@@ -31,7 +31,7 @@ const Navbar = async () => {
           </div>
           {session?.user.isAdmin && (
             <div className="text-orange-300">
-              <Link href="/dashboard" className="focus:font-bold">
+              <Link href="/dashboard/event" className="focus:font-bold">
                 Dashboard
               </Link>
             </div>

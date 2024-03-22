@@ -1,12 +1,10 @@
 "use client";
-import AddButton from "@/app/component/AddButton";
-import EditButton from "@/app/component/EditButton";
 import Search from "@/app/component/Search";
 import { CountryType } from "@/types/types";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { MdDelete} from "react-icons/md";
 
 type InputType = {
   name: string;
@@ -73,6 +71,16 @@ const CountryPage = () => {
 
     fetchCountries();
   }, []);
+
+const handleDelete = async (id: string) => {
+  const res = await fetch(`http://localhost:3000/api/country/delete/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to delete Country");
+  }
+  window.location.reload();
+};
 
   const submitData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -162,37 +170,35 @@ const CountryPage = () => {
         </thead>
         <tbody>
           {countries
-            .filter((country) =>
-              country.name.toLowerCase().includes(searchQuery.toLowerCase())
+            .filter((countries) =>
+            countries.name.toLowerCase().includes(searchQuery.toLowerCase())
             )
-            .map((country) => (
-              <tr key={country.id} className="">
+            .map((countries) => (
+              <tr key={countries.id} className="">
                 <td className="p-3 border border-gray-400">
                   {
                     <div className="flex flex-col items-center justify-center">
                       <Image
-                        src={country.flag}
-                        alt={`${country.name}'s picture`}
+                        src={countries.flag}
+                        alt={`${countries.name}'s picture`}
                         width={50}
                         height={50}
                       />
-                      <p>{country.name}</p>
+                      <p>{countries.name}</p>
                     </div>
                   }
                 </td>
                 <td className="p-3 border border-gray-400">
-                  <p className="text-xl">{country.name}</p>
+                  <p className="text-xl">{countries.name}</p>
                 </td>
                 <td className="p-3 border border-gray-400">
-                  <p className="text-xl">{country.abbreviation}</p>
+                  <p className="text-xl">{countries.abbreviation}</p>
                 </td>
 
                 <td className="p-3 border border-gray-400">
-                  <div>
-                    <Link href="/dashboard/athlete/test">
-                      <EditButton/>
-                    </Link>
-                  </div>
+                  <button onClick={() => handleDelete(countries.id)}>
+                      <MdDelete width={50} height={50} className="w-6 h-6" />
+                  </button>
                 </td>
               </tr>
             ))}

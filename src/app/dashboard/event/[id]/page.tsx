@@ -135,12 +135,14 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
         <form onSubmit={submitData} className="grid-cols-10">
           <div className="grid-cols-6">
             <div className="flex flex-col gap-6 text-xl">
+              <div className="flex flex-row gap-6 mx-auto">
+              <div className="flex flex-col gap-6">
               <input
                 type="text"
                 placeholder="Full Name"
                 value={input.name}
                 name="name"
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
               <input
@@ -148,7 +150,7 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
                 placeholder="Event Number"
                 name="eventNumber"
                 value={input.eventNumber}
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
               <input
@@ -156,13 +158,15 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
                 placeholder="classification"
                 name="classification"
                 value={input.classification}
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               />
+            </div>
+            <div className="flex flex-col gap-6">
               <select
                 name="gender"
                 id="gender"
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
                 onChange={handleChange}
               >
                 <option value={input.gender}>{input.gender}</option>
@@ -176,7 +180,7 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
               <select
                 name="stage"
                 id="stage"
-                className="p-2 rounded-md bg-slate-800 mx-auto text-white w-[30rem]"
+                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
                 onChange={handleChange}
                 value={input.stage}
               >
@@ -187,12 +191,15 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
               </select>
               <button
                 type="submit"
-                className=" bg-slate-700 px-6 py-3 text-lg rounded-xl mt-10 w-auto ml-6 text-white"
+                className="mx-auto bg-yellow-400 px-6 py-3 text-lg rounded-xl w-[30rem] text-white"
               >
                 Update
               </button>
+              </div>
+              </div>
             </div>
-            <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+            <h1 className="text-2xl text-center text-white mt-5">Athletes in Event</h1>
+            <table className="table-auto w-4/5 border-2 border-gray-600 text-center mt-4 bg-slate-200 mx-auto">
               <thead className="bg-gray-50 border-b-2 border-gray-500">
                 <tr>
                   <th className="w-32 p-3 text-sm font-semibold tracking-wide ">
@@ -276,7 +283,8 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
               </tbody>
             </table>
             <div>
-              <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
+            <h1 className="text-2xl text-center text-white mt-5">Athletes</h1>
+              <table className="table-auto w-4/5 border-2 border-gray-600 text-center mt-4 bg-slate-200 mx-auto">
                 <thead className="bg-gray-50 border-b-2 border-gray-500">
                   <tr>
                     <th className="w-32 p-3 text-sm font-semibold tracking-wide ">

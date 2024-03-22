@@ -9,7 +9,6 @@ const MENU = [
     list: [
       { title: "Athlete", path: "/dashboard/athlete" },
       { title: "Country", path: "/dashboard/country" },
-      { title: "Medal", path: "/dashboard/medal" },
       { title: "Event", path: "/dashboard/event" },
     ],
   },

@@ -80,7 +80,7 @@ const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       <div>
-        <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200 w-3/5 mx-auto">
+        <table className="table-auto border-2 border-gray-600 text-center mt-4 bg-slate-200 mx-auto w-4/5">
           <thead className="bg-gray-50 border-b-2 border-gray-500">
             <tr>
               <th className="w-20 p-3 text-sm font-semibold tracking-wide ">
