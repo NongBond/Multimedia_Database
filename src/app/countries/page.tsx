@@ -17,7 +17,7 @@ const fetchCountry = async () => {
 const CountriesPage = async () => {
   const contries: CountryType[] = await fetchCountry();
   return (
-    <div className="flex flex-col items-center justify-center gap-10 pt-10">
+    <div className="flex flex-col items-center mx-auto justify-center gap-10 pt-10">
       <h1 className="font-bold text-2xl">All Countries</h1>
       <div className="flex flex-row flex-wrap gap-20 px-10">
         {contries.map((country) => (
@@ -35,7 +35,8 @@ const CountriesPage = async () => {
             <div className="mt-3 text-center">
               <Link
                 href={`countries/${country.id}`}
-                className="bg-slate-700 text-gray-100 p-3 rounded-xl">
+                className="bg-slate-700 text-gray-100 p-3 rounded-xl"
+              >
                 View Athletes
               </Link>
             </div>
