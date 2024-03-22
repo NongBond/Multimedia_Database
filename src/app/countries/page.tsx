@@ -19,7 +19,7 @@ const CountriesPage = async () => {
   return (
     <div className="flex flex-col items-center justify-center gap-10 pt-10">
       <h1 className="font-bold text-2xl">All Countries</h1>
-      <div className="flex flex-row gap-20 px-10">
+      <div className="flex flex-row flex-wrap gap-20 px-10">
         {contries.map((country) => (
           <div
             key={country.id}

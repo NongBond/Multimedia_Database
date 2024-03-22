@@ -1,6 +1,7 @@
 import { CountryType } from "@/types/types";
 import Image from "next/image";
-import Link from "next/link";
+import React from "react";
+
 
 const fetchCountry = async () => {
   const res = await fetch(`http://localhost:3000/api/country`, {
@@ -23,12 +24,23 @@ export default async function HomePage() {
             <th className="w-30 p-3 text-sm font-semibold tracking-wide ">
               COUNTRY
             </th>
-            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">
-              GOLD
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide text-center">
+              <h1 className="flex flex-row items-center justify-center">
+                GOLD
+                <Image src="/images/medals/goldmedal.svg" alt="Gold Medal" width={20} height={20} />
+              </h1>
             </th>
-            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">SILVER</th>
-            <th className="w-30 p-3 text-sm font-semibold tracking-wide ">
-              BRONZE
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide text-center">
+              <h1 className="flex flex-row items-center justify-center">
+                Silver
+                <Image src="/images/medals/silvermedal.svg" alt="Gold Medal" width={20} height={20} />
+              </h1>
+            </th>
+            <th className="w-30 p-3 text-sm font-semibold tracking-wide text-center">
+              <h1 className="flex flex-row items-center justify-center">
+                Bronze
+                <Image src="/images/medals/bronzemedal.svg" alt="Gold Medal" width={20} height={20} />
+              </h1>
             </th>
           </tr>
         </thead>

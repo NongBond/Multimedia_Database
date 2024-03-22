@@ -74,6 +74,7 @@ const AddEventPage: React.FC = () => {
         <input type="time" placeholder="Time" name="time" className="input-field rounded-md h-10 px-4" onChange={handleChange} />
         <input type="text" placeholder="Stage" name="stage" className="input-field rounded-md h-10 px-4" onChange={handleChange} />
         <select name="status" className="input-field rounded-md h-10 px-4" onChange={handleChange}>
+          <option value="">Status</option>
           <option value="result">Result</option>
           <option value="live">Live</option>
           <option value="start-list">Start-List</option>

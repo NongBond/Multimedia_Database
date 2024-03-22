@@ -17,14 +17,20 @@ export default function ResultsPage({ params }: { params: { id: string } }) {
   if (!event) {
     return <div>Loading...</div>;
   }
-  if (event.status !== "result") {
-    return <div>Not resulted yet</div>;
-  }
   if (event.status === "live") {
-    return <div>Event is live</div>;
+    return <div className="px-28 mt-4">
+      <Link href="/event" className="bg-yellow-400 px-2 py-3 rounded-lg text-white w-20 text-center">
+        Back
+      </Link>
+      <h1 className="text-3xl font-semibold text-center text-white mt-4">Not resulted yet</h1></div>;
   }
+  
   if (event.status === "start-list") {
-    return <div className="px-28">
+    return <div className="px-28 mt-4">
+      <Link href="/event" className="bg-yellow-400 px-2 py-3 rounded-lg text-white w-20 text-center">
+        Back
+      </Link>
+
     <table className="table-auto w-full border-2 border-gray-600 text-center mt-4 bg-slate-200">
       <thead className="bg-gray-50 border-b-2 border-gray-500">
         <tr>
