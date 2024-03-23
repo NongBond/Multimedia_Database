@@ -4,7 +4,8 @@ import { CountryType } from "@/types/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { MdDelete} from "react-icons/md";
+import { useFormStatus } from "react-dom";
+import { MdDelete } from "react-icons/md";
 
 type InputType = {
   name: string;
@@ -16,6 +17,7 @@ const CountryPage = () => {
   const [countries, setCountries] = useState<CountryType[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [file, setFile] = useState<File>();
+  const { pending } = useFormStatus();
   const [input, setInput] = useState({
     name: "",
     abbreviation: "",
@@ -72,15 +74,15 @@ const CountryPage = () => {
     fetchCountries();
   }, []);
 
-const handleDelete = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/api/country/delete/${id}`, {
-    method: "DELETE",
-  });
-  if (!res.ok) {
-    throw new Error("Failed to delete Country");
-  }
-  window.location.reload();
-};
+  const handleDelete = async (id: string) => {
+    const res = await fetch(`http://localhost:3000/api/country/delete/${id}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to delete Country");
+    }
+    window.location.reload();
+  };
 
   const submitData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -145,8 +147,9 @@ const handleDelete = async (id: string) => {
             <button
               type="submit"
               className=" bg-yellow-500 px-6 py-2 text-lg rounded-xl text-white"
+              disabled={pending}
             >
-              Add
+              {pending ? "Adding..." : "Add"}
             </button>
           </form>
         </div>
@@ -171,7 +174,7 @@ const handleDelete = async (id: string) => {
         <tbody>
           {countries
             .filter((countries) =>
-            countries.name.toLowerCase().includes(searchQuery.toLowerCase())
+              countries.name.toLowerCase().includes(searchQuery.toLowerCase())
             )
             .map((countries) => (
               <tr key={countries.id} className="">
@@ -197,7 +200,7 @@ const handleDelete = async (id: string) => {
 
                 <td className="p-3 border border-gray-400">
                   <button onClick={() => handleDelete(countries.id)}>
-                      <MdDelete width={50} height={50} className="w-6 h-6" />
+                    <MdDelete width={50} height={50} className="w-6 h-6" />
                   </button>
                 </td>
               </tr>

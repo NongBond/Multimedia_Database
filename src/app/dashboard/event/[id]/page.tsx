@@ -136,69 +136,71 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
           <div className="grid-cols-6">
             <div className="flex flex-col gap-6 text-xl">
               <div className="flex flex-row gap-6 mx-auto">
-              <div className="flex flex-col gap-6">
-              <input
-                type="text"
-                placeholder="Full Name"
-                value={input.name}
-                name="name"
-                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                placeholder="Event Number"
-                name="eventNumber"
-                value={input.eventNumber}
-                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                placeholder="classification"
-                name="classification"
-                value={input.classification}
-                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col gap-6">
-              <select
-                name="gender"
-                id="gender"
-                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              >
-                <option value={input.gender}>{input.gender}</option>
-                {input.gender.toLowerCase() === "men" ? null : (
-                  <option value="men">Men</option>
-                )}
-                {input.gender.toLowerCase() === "female" ? null : (
-                  <option value="female">Female</option>
-                )}
-              </select>
-              <select
-                name="stage"
-                id="stage"
-                className="p-2 rounded-md  mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-                value={input.stage}
-              >
-                <option value={input.stage}>{input.stage}</option>
-                <option value="final">Final</option>
-                <option value="semi-final">Semi-Final</option>
-                <option value="preliminary">Preliminary</option>
-              </select>
-              <button
-                type="submit"
-                className="mx-auto bg-yellow-400 px-6 py-3 text-lg rounded-xl w-[30rem] text-white"
-              >
-                Update
-              </button>
+                <div className="flex flex-col gap-6">
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    value={input.name}
+                    name="name"
+                    className="p-2 rounded-md  mx-auto text-black w-[30rem]"
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Event Number"
+                    name="eventNumber"
+                    value={input.eventNumber}
+                    className="p-2 rounded-md  mx-auto text-black w-[30rem]"
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="classification"
+                    name="classification"
+                    value={input.classification}
+                    className="p-2 rounded-md  mx-auto text-black w-[30rem]"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="flex flex-col gap-6">
+                  <select
+                    name="gender"
+                    id="gender"
+                    className="p-2 rounded-md  mx-auto text-black w-[30rem]"
+                    onChange={handleChange}
+                  >
+                    <option value={input.gender}>{input.gender}</option>
+                    {input.gender.toLowerCase() === "men" ? null : (
+                      <option value="men">Men</option>
+                    )}
+                    {input.gender.toLowerCase() === "female" ? null : (
+                      <option value="female">Female</option>
+                    )}
+                  </select>
+                  <select
+                    name="stage"
+                    id="stage"
+                    className="p-2 rounded-md  mx-auto text-black w-[30rem]"
+                    onChange={handleChange}
+                    value={input.stage}
+                  >
+                    <option value={input.stage}>{input.stage}</option>
+                    <option value="final">Final</option>
+                    <option value="semi-final">Semi-Final</option>
+                    <option value="preliminary">Preliminary</option>
+                  </select>
+                  <button
+                    type="submit"
+                    className="mx-auto bg-yellow-400 px-6 py-3 text-lg rounded-xl w-[30rem] text-white"
+                  >
+                    Update
+                  </button>
+                </div>
               </div>
-              </div>
             </div>
-            <h1 className="text-2xl text-center text-white mt-5">Athletes in Event</h1>
+            <h1 className="text-2xl text-center text-white mt-5">
+              Athletes in Event
+            </h1>
             <table className="table-auto w-4/5 border-2 border-gray-600 text-center mt-4 bg-slate-200 mx-auto">
               <thead className="bg-gray-50 border-b-2 border-gray-500">
                 <tr>
@@ -213,9 +215,6 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
                   </th>
                   <th className="w-24 p-3 text-sm font-semibold tracking-wide ">
                     GENDER
-                  </th>
-                  <th className="w-24 p-3 text-sm font-semibold tracking-wide ">
-                    DOB
                   </th>
                   <th className="w-28 p-3 text-sm font-semibold tracking-wide ">
                     CLASSIFICATION
@@ -262,7 +261,6 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
                     <td className="p-3 border border-gray-400">
                       {athlete.gender}
                     </td>
-                    <td>{athlete.dateOfBirth}</td>
 
                     <td className="p-3 border border-gray-400">
                       {athlete.classification}
@@ -283,7 +281,7 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
               </tbody>
             </table>
             <div>
-            <h1 className="text-2xl text-center text-white mt-5">Athletes</h1>
+              <h1 className="text-2xl text-center text-white mt-5">Athletes</h1>
               <table className="table-auto w-4/5 border-2 border-gray-600 text-center mt-4 bg-slate-200 mx-auto">
                 <thead className="bg-gray-50 border-b-2 border-gray-500">
                   <tr>
@@ -298,9 +296,6 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
                     </th>
                     <th className="w-24 p-3 text-sm font-semibold tracking-wide ">
                       GENDER
-                    </th>
-                    <th className="w-24 p-3 text-sm font-semibold tracking-wide ">
-                      DOB
                     </th>
                     <th className="w-28 p-3 text-sm font-semibold tracking-wide ">
                       CLASSIFICATION
@@ -347,7 +342,6 @@ const EditEventPage = ({ params }: { params: { id: string } }) => {
                       <td className="p-3 border border-gray-400">
                         {athlete.gender}
                       </td>
-                      <td>{athlete.dateOfBirth}</td>
 
                       <td className="p-3 border border-gray-400">
                         {athlete.classification}

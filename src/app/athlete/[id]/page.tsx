@@ -31,33 +31,35 @@ const calculateAge = (date: string) => {
 
 const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
   const athlete: AthleteType = await fetchAthlete(params.id);
-  const goldMedals = athlete.medal.filter(
-    (medal) => medal.type === "GOLD"
-  ).length;
-  const silverMedals = athlete.medal.filter(
-    (medal) => medal.type === "SILVER"
-  ).length;
-  const bronzeMedals = athlete.medal.filter(
-    (medal) => medal.type === "BRONZE"
-  ).length;
+  const goldMedals =
+    athlete.medal?.filter((medal) => medal.type === "GOLD").length || 0;
+  const silverMedals =
+    athlete.medal?.filter((medal) => medal.type === "SILVER").length || 0;
+  const bronzeMedals =
+    athlete.medal?.filter((medal) => medal.type === "BRONZE").length || 0;
 
   return (
     <div className="pt-4 my-auto mx-auto flex flex-col">
-      <Link href="/athlete" className="bg-yellow-400 px-2 py-3 rounded-lg text-white ml-4 w-20 text-center">
+      <Link
+        href="/athlete"
+        className="bg-yellow-400 px-2 py-3 rounded-lg text-white ml-4 w-20 text-center"
+      >
         Back
       </Link>
       <div className="flex lg:flex-row md:flex-col sm:flex-col gap-8 items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-3">
-              <div className="flex items-center justify-center">
-                <Image
-                  src={athlete.country.flag}
-                  alt={`${athlete.country.name}'s picture`}
-                  width={50}
-                  height={50}
-                />
-              </div>
-              <h2 className="mb-3 font-medium text-lg text-center text-white">Country: {athlete.country.name}</h2>
-            </div>
+          <div className="flex items-center justify-center">
+            <Image
+              src={athlete.country.flag}
+              alt={`${athlete.country.name}'s picture`}
+              width={50}
+              height={50}
+            />
+          </div>
+          <h2 className="mb-3 font-medium text-lg text-center text-white">
+            Country: {athlete.country.name}
+          </h2>
+        </div>
         <div>
           <Image
             src={athlete.picture}
@@ -72,7 +74,9 @@ const SingleAthletePage = async ({ params }: { params: { id: string } }) => {
             <p className="font-medium text-lg mb-2">Name: {athlete.name}</p>
           </div>
           <div className="flex flex-row gap-1 text-white items-center ">
-            <p className="font-medium text-lg">Age: {calculateAge(athlete.dateOfBirth)}</p>
+            <p className="font-medium text-lg">
+              Age: {calculateAge(athlete.dateOfBirth)}
+            </p>
           </div>
           <div className="flex flex-row gap-1 text-white items-center ">
             <p className="font-medium text-lg">Gender: {athlete.gender}</p>

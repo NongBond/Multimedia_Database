@@ -126,104 +126,104 @@ const EditAthletePage = ({ params }: { params: { id: string } }) => {
       });
 
       const data = await res.json();
-      window.location.href = `/athlete/${data.id}`;
+      window.location.href = `/dashboard/athlete`;
     } catch (error) {
       console.error("Error adding athlete:", error);
     }
   };
 
   return (
-      <div>
-        <form onSubmit={submitData} className="grid-cols-10">
-          <div className="w-full grid-cols-4">
-            <Image
-              src={input.picture ? input.picture : "/blank_user.jpeg"}
-              alt="athlete picture"
-              width={50}
-              height={50}
-              onClick={handleOldPictureClick}
-              className="w-40 h-40 cursor-pointer block mx-auto m-8"
+    <div>
+      <form onSubmit={submitData} className="grid-cols-10">
+        <div className="w-full grid-cols-4">
+          <Image
+            src={input.picture ? input.picture : "/blank_user.jpeg"}
+            alt="athlete picture"
+            width={50}
+            height={50}
+            onClick={handleOldPictureClick}
+            className="w-40 h-40 cursor-pointer block mx-auto m-8"
+          />
+          <input
+            type="file"
+            name="picture"
+            id="fileInput"
+            onChange={handleChangeImg}
+            className="hidden"
+          />
+        </div>
+        <div className="grid-cols-6">
+          <div className="flex flex-col gap-6 text-xl">
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={input.name}
+              name="name"
+              className="p-2 rounded-md mx-auto text-black w-[30rem]"
+              onChange={handleChange}
             />
             <input
-              type="file"
-              name="picture"
-              id="fileInput"
-              onChange={handleChangeImg}
-              className="hidden"
+              type="number"
+              placeholder="Bib Number"
+              name="bibNo"
+              value={input.bibNo}
+              className="p-2 rounded-md mx-auto text-black w-[30rem]"
+              onChange={handleChange}
             />
+            <input
+              type="text"
+              placeholder="classification"
+              name="classification"
+              value={input.classification}
+              className="p-2 rounded-md mx-auto text-black w-[30rem]"
+              onChange={handleChange}
+            />
+            <select
+              name="gender"
+              id="gender"
+              className="p-2 rounded-md mx-auto text-black w-[30rem]"
+              onChange={handleChange}
+            >
+              <option value={input.gender}>{input.gender}</option>
+              {input.gender.toLowerCase() === "men" ? null : (
+                <option value="men">Men</option>
+              )}
+              {input.gender.toLowerCase() === "female" ? null : (
+                <option value="female">Female</option>
+              )}
+            </select>
+            <select
+              name="countryId"
+              id="country"
+              className="p-2 rounded-md mx-auto text-black w-[30rem]"
+              onChange={handleChange}
+              value={input.countryId}
+            >
+              {" "}
+              {countries.map((country) => (
+                <option key={country.id} value={country.id}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+            <input
+              type="date"
+              placeholder="Date of Birth"
+              name="dateOfBirth"
+              value={input.dateOfBirth.split("T")[0]}
+              className="p-2 rounded-md mx-auto text-black w-[30rem]"
+              onChange={handleChange}
+            />
+            <button
+              type="submit"
+              className=" bg-yellow-500 hover:bg-white px-6 py-3 text-lg rounded-xl mt-10 w-[30rem] text-white hover:text-yellow-500 mx-auto"
+            >
+              Update
+            </button>
           </div>
-          <div className="grid-cols-6">
-            <div className="flex flex-col gap-6 text-xl">
-              <input
-                type="text"
-                placeholder="Full Name"
-                value={input.name}
-                name="name"
-                className="p-2 rounded-md mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-              <input
-                type="number"
-                placeholder="Bib Number"
-                name="bibNo"
-                value={input.bibNo}
-                className="p-2 rounded-md mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                placeholder="classification"
-                name="classification"
-                value={input.classification}
-                className="p-2 rounded-md mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-              <select
-                name="gender"
-                id="gender"
-                className="p-2 rounded-md mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              >
-                <option value={input.gender}>{input.gender}</option>
-                {input.gender.toLowerCase() === "men" ? null : (
-                  <option value="men">Men</option>
-                )}
-                {input.gender.toLowerCase() === "female" ? null : (
-                  <option value="female">Female</option>
-                )}
-              </select>
-              <select
-                name="countryId"
-                id="country"
-                className="p-2 rounded-md mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-                value={input.countryId}
-              >
-                {" "}
-                {countries.map((country) => (
-                  <option key={country.id} value={country.id}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="date"
-                placeholder="Date of Birth"
-                name="dateOfBirth"
-                value={input.dateOfBirth.split("T")[0]}
-                className="p-2 rounded-md mx-auto text-black w-[30rem]"
-                onChange={handleChange}
-              />
-              <button
-                type="submit"
-                className=" bg-yellow-500 hover:bg-white px-6 py-3 text-lg rounded-xl mt-10 w-[30rem] text-white hover:text-yellow-500 mx-auto"
-              >
-                Update
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
   );
 };
 

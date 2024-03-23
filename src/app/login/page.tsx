@@ -2,20 +2,22 @@
 import { stat } from "fs";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const LoginPage = () => {
   const { data, status } = useSession();
   const router = useRouter();
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
   if (status === "loading") {
     return (
       <div className="block m-auto border-b-2 border-sky-600 h-10 w-10 animate-spin rounded-full"></div>
     );
-  }
-
-  if (status === "authenticated") {
-    router.push("/");
   }
 
   return (
